@@ -1,0 +1,25 @@
+#######################################
+# Syntax Coloring Map For Pololu driver
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+poldriv	KEYWORD1
+PD	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+setBrightness	KEYWORD2
+begin	KEYWORD2
+stop	KEYWORD2
+forward	KEYWORD2
+reverse	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+

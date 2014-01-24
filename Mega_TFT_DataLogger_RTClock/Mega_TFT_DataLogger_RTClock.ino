@@ -88,10 +88,11 @@ void setup()
 void loop()
 {
   updateTimeFromSerial();
-  logTempOnSD();
   getTempData();
+  logDataOnSD();
   tftPrintTime();
   tftPrintTemp();
+
 
 }
 

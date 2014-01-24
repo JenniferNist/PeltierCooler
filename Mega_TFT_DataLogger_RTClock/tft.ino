@@ -108,10 +108,10 @@ void errorTempSensors(boolean errorBlue, boolean errorBrown, boolean errorWater)
 ////////////////////////////////////////////////////
 
 void errorTempData() {
-  tft.fillScreen(ST7735_BLACK);
-  tft.setCursor(0,0);
+  //tft.fillScreen(ST7735_BLACK);
+  tft.setCursor(0,40);
   tft.println("error opening tempData.txt");
-  while (true); 
+  //while (true); 
 }
 
 /////////////////////////////////////////////////

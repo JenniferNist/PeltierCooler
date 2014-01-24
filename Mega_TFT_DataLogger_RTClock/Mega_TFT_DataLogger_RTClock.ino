@@ -61,7 +61,7 @@ static time_t tLast;
 time_t t;
 tmElements_t tm;
 
-File myFile;
+//File dataFile;
 String dateString = "";
 String dataLogString = "";
 
@@ -89,10 +89,9 @@ void loop()
 {
   updateTimeFromSerial();
   getTempData();
-  logDataOnSD();
   tftPrintTime();
   tftPrintTemp();
-
+  logDataOnSD();
 
 }
 

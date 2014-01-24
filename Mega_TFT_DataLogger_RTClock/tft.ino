@@ -57,6 +57,7 @@ void tftPrintTime() {
     tLast = t;
     
     dateStringGenerator();
+    
     tft.fillRect(0, 32, 126, 7, ST7735_BLACK);
     tft.setCursor(0,32);
     tft.println(dateString);

@@ -18,6 +18,7 @@ void initTempSensors() {
 void locateTempSensors() {
 
   tftFoundDevices();
+  
   errorBlue = false;
   errorBrown = false;
   errorWater = false;

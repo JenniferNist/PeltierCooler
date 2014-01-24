@@ -93,4 +93,38 @@ void tftPrintTemp() {
 
 }
  
+//////////////////////////////////////////////////
 
+void errorTempSensors(boolean errorBlue, boolean errorBrown, boolean errorWater) {
+ tft.setCursor(0,24);
+ if(errorBlue) tft.println("No blue termometer");
+ if(errorBrown) tft.println("No brown termometer");
+ if(errorWater) tft.println("No water termometer");
+
+ //while(true);
+ delay(2000);
+}
+
+////////////////////////////////////////////////////
+
+void errorTempData() {
+  tft.fillScreen(ST7735_BLACK);
+  tft.setCursor(0,0);
+  tft.println("error opening tempData.txt");
+  while (true); 
+}
+
+/////////////////////////////////////////////////
+
+void tftPrintSDInfo(boolean errorInitSD) {
+  
+  tft.println("Initializing SD card...");
+  
+  if (errorInitSD) {
+    tft.println("initialization failed!");
+    while(true);
+    return;
+  }
+  
+  tft.println("initialization done.");
+}

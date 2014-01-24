@@ -1,14 +1,7 @@
 void initSD() {
-
-  tft.println("Initializing SD card...");
-
-  if (!SD.begin(sd_cs)) {
-    tft.println("initialization failed!");
-    while(true);
-    return;
-  }
-  tft.println("initialization done.");
-
+  
+  errorInitSD = false;
+  tftPrintSDInfo(errorInitSD);
 }
 
 ///////////////////////////////////////////////////////
@@ -27,8 +20,7 @@ void logTempOnSD() {
   }  
   // if the file isn't open, pop up an error:
   else {
-    tft.println("error opening tempData.txt");
-    while (true);
+    errorTempData();
   } 
 } 
 

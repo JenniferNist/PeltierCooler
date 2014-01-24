@@ -53,6 +53,7 @@ DeviceAddress blueTermometer, brownTermometer, waterTermometer;
 
 // in case of an error
 boolean errorBlue, errorBrown, errorWater;
+boolean errorInitSD;
 
 Adafruit_ST7735 tft = Adafruit_ST7735(tft_cs, dc, rst);
 
@@ -87,10 +88,11 @@ void setup()
 void loop()
 {
   updateTimeFromSerial();
+  logTempOnSD();
   getTempData();
   tftPrintTime();
   tftPrintTemp();
-  logTempOnSD();
+
 }
 
 

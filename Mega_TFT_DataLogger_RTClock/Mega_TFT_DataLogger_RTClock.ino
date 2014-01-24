@@ -78,7 +78,7 @@ void setup()
   initTft();
   initSD();
   delay(2000);
-
+  
   locateTempSensors();
   writeStaticText();
 
@@ -87,10 +87,10 @@ void setup()
 void loop()
 {
   updateTimeFromSerial();
-  getTemp();
+  getTempData();
   tftPrintTime();
   tftPrintTemp();
-  logTemp();
+  logTempOnSD();
 }
 
 

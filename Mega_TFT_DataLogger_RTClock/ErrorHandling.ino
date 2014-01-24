@@ -5,6 +5,6 @@ void errorTempSensors(boolean, boolean, boolean) {
  if(errorBrown) tft.println("No brown termometer");
  if(errorWater) tft.println("No water termometer");
 
- while(true);
- //delay(2000); 
+ //while(true);
+ delay(2000);
 }

@@ -1,3 +1,50 @@
+
+String dateStringGenerator() {
+
+  dateString = String(day(t));
+  dateString += ".";
+  dateString += month(t); 
+  dateString += ".";
+  dateString += year(t);
+  dateString += " - ";
+  dateString += hour(t);
+  dateString += ":";
+  dateString += minute(t);
+  dateString += ":";
+  dateString += second(t);
+
+  return dateString;
+}
+
+///////////////////////////////////////////////////////////////
+
+String dataLogStringGenerator(String dateString) {
+
+  // read three sensors and append to the string:
+  char buffer[40];
+
+  //floatToString(buffer string, float value, precision, minimum text width)  
+  // make a string for assembling the data to log  
+  String dateStr = dateString;
+  dateStr.replace(".", ",");
+  dateStr.replace(":", ",");
+  dateStr.replace(" - ", ",");
+  
+  String dataLogString = "";
+  dataLogString = dateStr;
+  dataLogString += ",";
+  dataLogString += floatToString(buffer, inputData.tempBlue, 4, 6);
+  dataLogString += ",";
+  dataLogString += floatToString(buffer, inputData.tempBrown, 4, 6);
+  dataLogString += ",";
+  dataLogString += floatToString(buffer, inputData.tempWater, 4, 6);
+
+  return dataLogString;
+
+}
+
+////////////////////////////////////////////////////////////////
+
 char * floatToString(char * outstr, double val, byte precision, byte widthp){
   char temp[16]; //increase this if you need more digits than 15
   byte i;
@@ -56,49 +103,5 @@ char * floatToString(char * outstr, double val, byte precision, byte widthp){
 }
 
 //////////////////////////////////////////////////////////////
-
-String dateStringGenerator() {
-
-  dateString = String(day(t));
-  dateString += ".";
-  dateString += month(t); 
-  dateString += ".";
-  dateString += year(t);
-  dateString += " - ";
-  dateString += hour(t);
-  dateString += ":";
-  dateString += minute(t);
-  dateString += ":";
-  dateString += second(t);
-
-  return dateString;
-}
-
-///////////////////////////////////////////////////////////////
-
-String dataLogStringGenerator(String dateString) {
-
-  // read three sensors and append to the string:
-  char buffer[40];
-
-  //floatToString(buffer string, float value, precision, minimum text width)  
-  // make a string for assembling the data to log  
-  String dateStr = dateString;
-  dateStr.replace(".", ",");
-  dateStr.replace(":", ",");
-  dateStr.replace(" - ", ",");
-  
-  String dataLogString = "";
-  dataLogString = dateStr;
-  dataLogString += ",";
-  dataLogString += floatToString(buffer, inputData.tempBlue, 4, 6);
-  dataLogString += ",";
-  dataLogString += floatToString(buffer, inputData.tempBrown, 4, 6);
-  dataLogString += ",";
-  dataLogString += floatToString(buffer, inputData.tempWater, 4, 6);
-
-  return dataLogString;
-
-}
 
     

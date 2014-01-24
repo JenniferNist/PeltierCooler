@@ -13,7 +13,7 @@ void initSD() {
 
 ///////////////////////////////////////////////////////
 
-void logTemp() {
+void logTempOnSD() {
 
   // open the file. note that only one file can be open at a time,
   // so you have to close this one before opening another.

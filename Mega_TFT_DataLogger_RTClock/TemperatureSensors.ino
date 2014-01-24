@@ -1,5 +1,4 @@
 
-
 void initTempSensors() {
 
   // set the resolution
@@ -14,21 +13,6 @@ void initTempSensors() {
 
 }
 
-//////////////////////////////////////////////////
-
-void getTemp() {
-
-  oldInputData = inputData;
-
-  // call sensors.requestTemperatures() to issue a global temperature 
-  // request to all devices on the bus
-  sensors.requestTemperatures();
-  inputData.tempBlue = sensors.getTempC(blueTermometer);
-  inputData.tempBrown = sensors.getTempC(brownTermometer);
-  inputData.tempWater = sensors.getTempC(waterTermometer);
-
-}
-
 ///////////////////////////////////////////////
 
 void locateTempSensors() {
@@ -37,7 +21,6 @@ void locateTempSensors() {
   errorBlue = false;
   errorBrown = false;
   errorWater = false;
-
 
   // debug output if no sensors could be found
   if (!sensors.getAddress(blueTermometer, 0)) {
@@ -51,5 +34,20 @@ void locateTempSensors() {
   }   
   
   errorTempSensors(errorBlue, errorBrown, errorWater); 
+}
+
+//////////////////////////////////////////////////
+
+void getTempData() {
+
+  oldInputData = inputData;
+
+  // call sensors.requestTemperatures() to issue a global temperature 
+  // request to all devices on the bus
+  sensors.requestTemperatures();
+  inputData.tempBlue = sensors.getTempC(blueTermometer);
+  inputData.tempBrown = sensors.getTempC(brownTermometer);
+  inputData.tempWater = sensors.getTempC(waterTermometer);
+
 }
 

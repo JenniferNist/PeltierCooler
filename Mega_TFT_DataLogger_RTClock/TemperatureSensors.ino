@@ -1,3 +1,6 @@
+/*
+** initialize temperature sensors
+ */
 void initTempSensors() {
 
   // set the resolution
@@ -5,19 +8,21 @@ void initTempSensors() {
   sensors.setResolution(brownTermometer, TEMPERATURE_PRECISION);
   sensors.setResolution(waterTermometer, TEMPERATURE_PRECISION);
 
-  inputData.tempBlue = 0;
-  inputData.tempBrown = 0;
-  inputData.tempWater = 0;
-  inputData.tempTarget = 24;
+  //inputData.tempBlue = 0;
+  //inputData.tempBrown = 0;
+  //inputData.tempWater = 0;
+  //inputData.tempTarget = 24;
 
 }
 
-///////////////////////////////////////////////
-
+/*
+** print found (temperatur) devices
+ ** set flag, wether a termometer is found or not
+ */
 void locateTempSensors() {
 
   tftFoundDevices();
-  
+
   errorBlue = false;
   errorBrown = false;
   errorWater = false;
@@ -32,12 +37,14 @@ void locateTempSensors() {
   if (!sensors.getAddress(waterTermometer, 1)) {
     errorWater = true;
   }   
-  
+
   errorTempSensors(errorBlue, errorBrown, errorWater); 
 }
 
-//////////////////////////////////////////////////
-
+/*
+** save old temperature values
+ ** get new temperatur values
+ */
 void getTempData() {
 
   oldInputData = inputData;
@@ -50,4 +57,5 @@ void getTempData() {
   inputData.tempWater = sensors.getTempC(waterTermometer);
 
 }
+
 

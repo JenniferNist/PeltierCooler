@@ -15,8 +15,6 @@
 #include "config.h"
 #include "globals.h"
 
-/////////////////////////////////////////////////////////
-
 // Setup a oneWire instance to communicate with any OneWire devices (not just Maxim/Dallas temperature ICs)
 OneWire oneWire(ONE_WIRE_BUS);
 
@@ -26,8 +24,6 @@ DallasTemperature sensors(&oneWire);
 // TFT - SPI connection
 Adafruit_ST7735 tft = Adafruit_ST7735(tft_cs, dc, rst);
 
-
-/////////////////////////////////////////////////////////////
 
 void setup()
 {
@@ -40,7 +36,7 @@ void setup()
   initTft();
   initSD();
   delay(2000);
-  
+
   locateTempSensors();
   delay(2000); 
   writeStaticText();
@@ -56,5 +52,6 @@ void loop()
   logDataOnSD();
 
 }
+
 
 

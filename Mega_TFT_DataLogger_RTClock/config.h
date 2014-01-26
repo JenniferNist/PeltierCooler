@@ -17,6 +17,9 @@
 
 // Data wire is plugged into port 40 on the Arduino
 #define ONE_WIRE_BUS 40
+
+// set precision of the temperature sensors to 12 bit
 #define TEMPERATURE_PRECISION 12
+
 
 #endif // _CONFIG_H

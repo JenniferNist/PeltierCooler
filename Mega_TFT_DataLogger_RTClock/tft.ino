@@ -1,9 +1,9 @@
 
-
-// count and print the number of found devices on tft 
-
+/*
+** count and print the number of found devices on tft 
+ */
 void tftFoundDevices() {
-   
+
   tft.setCursor(0,0);
   tft.fillScreen(ST7735_BLACK);
   // locate devices on the 1-wire bus
@@ -14,9 +14,9 @@ void tftFoundDevices() {
 
 }
 
-
-// initialize tft, black screen and landscape
-
+/*
+** initialize tft, black screen and landscape
+ */
 void initTft() {
 
   // set tft_cs as putput
@@ -32,9 +32,9 @@ void initTft() {
 
 }
 
-
-// write static text on tft
-
+/*
+** write static text on tft
+ */
 void writeStaticText() {
 
   tft.fillScreen(ST7735_BLACK);
@@ -56,18 +56,18 @@ void writeStaticText() {
 
 }
 
-
-// if the time has changed, print the current time on tft
-
+/*
+** if the time has changed, print the current time on tft
+ */
 void tftPrintTime() {
   static time_t tLast;
-  
+
   t = now();
   if (t != tLast) {
     tLast = t;
-    
+
     dateStringGenerator();
-    
+
     tft.fillRect(0, 32, 126, 7, ST7735_BLACK);
     tft.setCursor(0,32);
     tft.println(dateString);
@@ -75,9 +75,10 @@ void tftPrintTime() {
 } 
 
 
-// print the currect temperatur values on tft
-// but befor: print old time in black color, to vanisch the old data
-
+/*
+** print the currect temperatur values on tft
+ ** but befor: print old time in black color, to vanisch the old data
+ */
 void tftPrintTemp() {
 
   // sensor blue
@@ -105,38 +106,42 @@ void tftPrintTemp() {
   tft.println(inputData.tempWater);
 
 }
- 
- 
-// print not found temperature sensors
 
+
+/*
+** print not found temperature sensors
+ */
 void errorTempSensors(boolean errorBlue, boolean errorBrown, boolean errorWater) {
- tft.setCursor(0,24);
- if(errorBlue) tft.println("No blue termometer");
- if(errorBrown) tft.println("No brown termometer");
- if(errorWater) tft.println("No water termometer");
+  tft.setCursor(0,24);
+  if(errorBlue) tft.println("No blue termometer");
+  if(errorBrown) tft.println("No brown termometer");
+  if(errorWater) tft.println("No water termometer");
 
 }
 
 
-// in case data file coudn't be opened
-
+/*
+** in case data file coudn't be opened
+ */
 void errorTempData() {
   tft.setCursor(0,48);
   tft.println("Error opening tempData.txt");
 }
 
 
-// print information about initialization of the sd-card
-
+/*
+** print information about initialization of the sd-card
+ */
 void tftPrintSDInfo(boolean errorInitSD) {
-  
+
   tft.println("Initializing SD card...");
-  
+
   if (errorInitSD) {
     tft.println("initialization failed!");
     while(true);
     return;
   }
-  
+
   tft.println("initialization done.");
 }
+

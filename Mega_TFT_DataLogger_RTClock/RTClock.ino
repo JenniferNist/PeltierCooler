@@ -1,4 +1,6 @@
-
+/*
+** initialize RTClock
+ */
 void initRTC() {
   //setSyncProvider() causes the Time library to synchronize with the
   //external RTC by calling RTC.get() every five minutes by default.
@@ -8,11 +10,13 @@ void initRTC() {
   Serial.println();
 }
 
-//////////////////////////////////////////////////////
-
+/*
+** function to set date and time manually over serial monitor
+ */
 void updateTimeFromSerial() {
+
   tmElements_t tm;
-  
+
   //check for input to set the RTC, minimum length is 12, i.e. yy,m,d,h,m,s
   if (Serial.available() >= 12) {
     //note that the tmElements_t Year member is an offset from 1970,
@@ -41,3 +45,4 @@ void updateTimeFromSerial() {
     }
   }
 } 
+

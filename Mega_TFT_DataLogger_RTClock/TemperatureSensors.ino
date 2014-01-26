@@ -1,4 +1,3 @@
-
 void initTempSensors() {
 
   // set the resolution

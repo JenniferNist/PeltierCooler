@@ -1,4 +1,7 @@
 
+// create string with format "dd.mm.yyyy - hh:mm:ss"" 
+// for tft
+
 String dateStringGenerator() {
 
   dateString = String(day(t));
@@ -16,20 +19,20 @@ String dateStringGenerator() {
   return dateString;
 }
 
-///////////////////////////////////////////////////////////////
 
-String dataLogStringGenerator(String dateString) {
 
-  // read three sensors and append to the string:
-  char buffer[40];
+// create string with format "dd,mm,yyyy,hh,mm,ss,tempBlue,tempBrown,tempWater"
+// for data storage on sd-card
 
-  //floatToString(buffer string, float value, precision, minimum text width)  
-  // make a string for assembling the data to log  
+String dataLogStringGenerator() {
+
+  // change dateString format to "dd,mm,yyyy,hh,mm,ss"
   String dateStr = dateString;
   dateStr.replace(".", ",");
   dateStr.replace(":", ",");
   dateStr.replace(" - ", ",");
   
+  // append dateString with temp data
   String dataLogString = "";
   dataLogString = dateStr;
   dataLogString += ",";
@@ -43,7 +46,10 @@ String dataLogStringGenerator(String dateString) {
 
 }
 
-////////////////////////////////////////////////////////////////
+
+
+// create a string from temp data from the buffer array
+// floatToString(buffer string, float value, precision, minimum text width) 
 
 char * floatToString(char * outstr, double val, byte precision, byte widthp){
   char temp[16]; //increase this if you need more digits than 15
@@ -102,6 +108,3 @@ char * floatToString(char * outstr, double val, byte precision, byte widthp){
   return outstr;
 }
 
-//////////////////////////////////////////////////////////////
-
-    

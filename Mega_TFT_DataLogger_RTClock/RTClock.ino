@@ -11,6 +11,8 @@ void initRTC() {
 //////////////////////////////////////////////////////
 
 void updateTimeFromSerial() {
+  tmElements_t tm;
+  
   //check for input to set the RTC, minimum length is 12, i.e. yy,m,d,h,m,s
   if (Serial.available() >= 12) {
     //note that the tmElements_t Year member is an offset from 1970,

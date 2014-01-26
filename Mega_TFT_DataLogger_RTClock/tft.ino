@@ -1,4 +1,7 @@
 
+
+// count and print the number of found devices on tft 
+
 void tftFoundDevices() {
    
   tft.setCursor(0,0);
@@ -8,25 +11,29 @@ void tftFoundDevices() {
   tft.print("Found ");
   tft.print(sensors.getDeviceCount(), DEC);
   tft.println(" devices.");
-  delay(1000); 
+
 }
 
-////////////////////////////////////////////////
+
+// initialize tft, black screen and landscape
 
 void initTft() {
 
-  // set pin 10 as putput
+  // set tft_cs as putput
   pinMode(tft_cs, OUTPUT);
 
   // If your TFT's plastic wrap has a Black Tab, use the following:
   tft.initR(INITR_BLACKTAB);
   tft.fillScreen(ST7735_BLACK);
+  // landscape
   tft.setRotation(3);
+  // display is black
   tft.invertDisplay(false);
 
 }
 
-//////////////////////////////////////////////
+
+// write static text on tft
 
 void writeStaticText() {
 
@@ -49,9 +56,12 @@ void writeStaticText() {
 
 }
 
-///////////////////////////////////////////
+
+// if the time has changed, print the current time on tft
 
 void tftPrintTime() {
+  static time_t tLast;
+  
   t = now();
   if (t != tLast) {
     tLast = t;
@@ -64,7 +74,9 @@ void tftPrintTime() {
   }
 } 
 
-///////////////////////////////////////////////
+
+// print the currect temperatur values on tft
+// but befor: print old time in black color, to vanisch the old data
 
 void tftPrintTemp() {
 
@@ -94,7 +106,8 @@ void tftPrintTemp() {
 
 }
  
-//////////////////////////////////////////////////
+ 
+// print not found temperature sensors
 
 void errorTempSensors(boolean errorBlue, boolean errorBrown, boolean errorWater) {
  tft.setCursor(0,24);
@@ -102,18 +115,18 @@ void errorTempSensors(boolean errorBlue, boolean errorBrown, boolean errorWater)
  if(errorBrown) tft.println("No brown termometer");
  if(errorWater) tft.println("No water termometer");
 
- //while(true);
- delay(2000);
 }
 
-////////////////////////////////////////////////////
+
+// in case data file coudn't be opened
 
 void errorTempData() {
   tft.setCursor(0,48);
   tft.println("Error opening tempData.txt");
 }
 
-/////////////////////////////////////////////////
+
+// print information about initialization of the sd-card
 
 void tftPrintSDInfo(boolean errorInitSD) {
   

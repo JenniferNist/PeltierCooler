@@ -7,12 +7,6 @@ void initTempSensors() {
   sensors.setResolution(blueTermometer, TEMPERATURE_PRECISION);
   sensors.setResolution(brownTermometer, TEMPERATURE_PRECISION);
   sensors.setResolution(waterTermometer, TEMPERATURE_PRECISION);
-
-  //inputData.tempBlue = 0;
-  //inputData.tempBrown = 0;
-  //inputData.tempWater = 0;
-  //inputData.tempTarget = 24;
-
 }
 
 /*
@@ -23,22 +17,16 @@ void locateTempSensors() {
 
   tftFoundDevices();
 
-  errorBlue = false;
-  errorBrown = false;
-  errorWater = false;
-
   // debug output if no sensors could be found
   if (!sensors.getAddress(blueTermometer, 0)) {
-    errorBlue = true;
+    errorFlag.errorBlue = true;
   }
   if (!sensors.getAddress(brownTermometer, 2)) {
-    errorBrown = true;
+    errorFlag.errorBrown = true;
   } 
   if (!sensors.getAddress(waterTermometer, 1)) {
-    errorWater = true;
+    errorFlag.errorWater = true; 
   }   
-
-  errorTempSensors(errorBlue, errorBrown, errorWater); 
 }
 
 /*
@@ -57,5 +45,6 @@ void getTempData() {
   inputData.tempWater = sensors.getTempC(waterTermometer);
 
 }
+
 
 

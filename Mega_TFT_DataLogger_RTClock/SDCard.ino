@@ -3,13 +3,10 @@
  ** set flag, wether sd-card was found or not
  */
 void initSD() {
-  errorInitSD = false;
 
   if(!SD.begin(sd_cs)) {
-    errorInitSD = true;
+    errorFlag.errorInitSD = true;
   }
-
-  tftPrintSDInfo(errorInitSD);
 }
 
 /*
@@ -33,7 +30,7 @@ void logDataOnSD() {
   }  
   // if the file isn't open, pop up an error:
   else {
-    errorTempData();
+    errorFlag.errorTempData = true;
   } 
 } 
 

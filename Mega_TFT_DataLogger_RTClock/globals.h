@@ -3,19 +3,29 @@
 
 
 // define struct for needed information
-typedef struct inputDataType{
-  float tempBlue;
-  float tempBrown;
-  float tempWater;
-  float tempTarget;
+typedef struct inputDataType {
+  float tempBlue = 0;
+  float tempBrown = 0;
+  float tempWater = 0;
+  float tempTarget = 24;
 };
 
 inputDataType inputData;
 inputDataType oldInputData;
 
+//define struct of error flags
+typedef struct errorFlagType {
+  boolean errorInitSD = false;
+  boolean errorTempData = false;
+  boolean errorBlue = false;
+  boolean errorBrown = false;
+  boolean errorWater = false;
+};
+
+errorFlagType errorFlag;
+
 // varialbes for RTClock
 time_t t;
-
 
 // strings for output on tft and log on sd-card
 String dateString = "";

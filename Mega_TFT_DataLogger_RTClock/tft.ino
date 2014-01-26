@@ -11,6 +11,7 @@ void tftFoundDevices() {
   tft.print("Found ");
   tft.print(sensors.getDeviceCount(), DEC);
   tft.println(" devices.");
+  tft.println("");
 
 }
 
@@ -107,41 +108,30 @@ void tftPrintTemp() {
 
 }
 
-
 /*
-** print not found temperature sensors
+** print errors
  */
-void errorTempSensors(boolean errorBlue, boolean errorBrown, boolean errorWater) {
-  tft.setCursor(0,24);
-  if(errorBlue) tft.println("No blue termometer");
-  if(errorBrown) tft.println("No brown termometer");
-  if(errorWater) tft.println("No water termometer");
+void checkForErrors() {
 
-}
-
-
-/*
-** in case data file coudn't be opened
- */
-void errorTempData() {
-  tft.setCursor(0,48);
-  tft.println("Error opening tempData.txt");
-}
-
-
-/*
-** print information about initialization of the sd-card
- */
-void tftPrintSDInfo(boolean errorInitSD) {
-
-  tft.println("Initializing SD card...");
-
-  if (errorInitSD) {
+  if(errorFlag.errorInitSD) {
+    tft.println("Initializing SD card...");
     tft.println("initialization failed!");
-    while(true);
-    return;
+    tft.println("");
+    
+  } 
+  else {
+    tft.println("Initializing SD card...");
+    tft.println("initialization done.");
+    tft.println("");
   }
+  if (errorFlag.errorTempData) {
+    tft.println("Error opening tempData.txt");
+    tft.println("");
+  }
+  if (errorFlag.errorBlue) tft.println("No blue termometer");
+  if (errorFlag.errorBrown) tft.println("No brown termometer");
+  if (errorFlag.errorWater) tft.println("No water termometer");
+  //if (errorFlag.errorBlue || errorFlag.errorBrown || errorFlag.errorWater) while(true);
 
-  tft.println("initialization done.");
 }
 

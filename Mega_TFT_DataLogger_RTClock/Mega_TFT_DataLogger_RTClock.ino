@@ -1,10 +1,9 @@
 
-
-#include <Adafruit_GFX.h>    // Core graphics library
-#include <Adafruit_ST7735.h> // Hardware-specific library
-#include <SD.h>
-#include <SPI.h>
-#include <OneWire.h>
+#include <Adafruit_GFX.h>          // Core graphics library
+#include <Adafruit_ST7735.h>       // Hardware-specific library
+#include <SD.h>                    // library to work with SD-Cards
+#include <SPI.h>                   // SPI library 
+#include <OneWire.h>               
 #include <DallasTemperature.h>
 
 #include <DS3232RTC.h>        //http://github.com/JChristensen/DS3232RTC
@@ -35,16 +34,19 @@ void setup()
   initTempSensors();
   initTft();
   initSD();
-  delay(2000);
 
   locateTempSensors();
-  delay(2000); 
+  delay(1000);
+  checkForErrors();
+  delay(4000); 
+  
   writeStaticText();
 
 }
 
 void loop()
 {
+  
   updateTimeFromSerial();
   getTempData();
   tftPrintTime();

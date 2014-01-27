@@ -3,13 +3,8 @@
 */
 void initFan() {
   
-  int32_t frequency = 25000;  // frequency of the pwn-signal (in Hz)
-  
-  //initialize all timers except for 0, to save time keeping functions
-  InitTimersSafe(); 
-
   //sets the frequency for the specified pin
-  SetPinFrequencySafe(fan, frequency);
+  SetPinFrequencySafe(pwmFanPin, fanPwmFrequency);
 
 }  
 
@@ -26,6 +21,6 @@ void getFanSpeed() {
   
   // use this functions instead of analogWrite on 'initialized' pins
   // set the value of a pwm output pin
-  pwmWrite(fan, speedFan);
+  pwmWrite(pwmFanPin, speedFan);
 
 }

@@ -50,16 +50,4 @@ DeviceAddress blueTermometer, brownTermometer, waterTermometer;
 // read three sensors and append to the string:
 char buffer[40];
 
-// the pin that the fan is attached to
-int fan = 3;
-
-// the analog pin, the potentiometer is attached to
-const int poti = A0;
-
-// pins for peltier
-int pwmPin = 5;		           // Define intensity/pwm pin as 5
-int heatingPin = 6;		   // Define heating pin as 6
-int coolingPin = 7;		   // Define cooling pin as 7
-
-
 #endif // _GLOBALS_H

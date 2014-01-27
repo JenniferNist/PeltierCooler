@@ -25,7 +25,7 @@ DallasTemperature sensors(&oneWire);
 Adafruit_ST7735 tft = Adafruit_ST7735(tft_cs, dc, rst);
 
 // peltier control: heat or cool
-PC PC(pwmPin, heatingPin, coolingPin);
+PC PC(pwmPeltierPin, heatingPin, coolingPin, peltierPwmFrequency);
 
 
 void setup()
@@ -36,6 +36,11 @@ void setup()
 
   initRTC();
   initTempSensors();
+
+  // initialize all timers except for 0, to save time keeping functions
+  // needed to set pwm frequencies for peltier and fan on timer 3 and 4.
+  InitTimersSafe(); 
+  
   initFan();
   initPeltier();
   initTft();

@@ -5,7 +5,6 @@
 void initPeltier() {
   
   PC.begin();
-  // PC.stop();  // needed?  
   
 }
 

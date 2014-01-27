@@ -28,7 +28,7 @@
 // 
 #define poti A0
 #define rst  -1
-#define pwmPeltierPin 5 
+#define pwmPeltierPin 7 
 #define pwmFanPin 6
 #define heatingPin 42
 #define coolingPin 43
@@ -43,7 +43,7 @@
 #define TEMPERATURE_PRECISION 12
 
 // set frequency of fan and peltier element
-#define fanPwmFrequency 25000  // frequency of the pwn-signal (in Hz)
+#define fanPwmFrequency 22000  // frequency of the pwn-signal (in Hz)
 #define peltierPwmFrequency 22000  // frequency of the pwn-signal (in Hz)
 
 #endif // _CONFIG_H

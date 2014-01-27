@@ -26,7 +26,7 @@ void peltierControl() {
     if ((tempDifference < -1) && (tempDifference >= -1.5)) PC.heat(100);
     if ((tempDifference < -1.5) && (tempDifference >= -2)) PC.heat(150);
     if ((tempDifference < -2) && (tempDifference >= -2.5)) PC.heat(200);
-    else PC.heat(255);                                                 // max intensity: 255
+    else PC.heat(253);                                                 // max intensity: 255
   }
     
   // tempDifference > 0: water is to warm (27C (tempWater) - 24C (tempTarget) = 3 (tempDifference))
@@ -38,7 +38,7 @@ void peltierControl() {
     if ((tempDifference > 1) && (tempDifference <= 1.5)) PC.cool(100);
     if ((tempDifference > 1.5) && (tempDifference <= 2)) PC.cool(150);
     if ((tempDifference > 2) && (tempDifference <= 2.5)) PC.cool(200);
-    else PC.cool(255);
+    else PC.cool(253);
   }
   
   else {

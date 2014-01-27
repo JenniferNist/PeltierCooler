@@ -21,6 +21,7 @@ typedef struct errorFlagType {
   boolean errorBlue = false;
   boolean errorBrown = false;
   boolean errorWater = false;
+//  boolean errorFan = false;  --> not jet implemented --> how?
 };
 
 errorFlagType errorFlag;
@@ -38,16 +39,11 @@ DeviceAddress blueTermometer, brownTermometer, waterTermometer;
 // read three sensors and append to the string:
 char buffer[40];
 
-// variables for fan
-int fan = 3;                // the pin that the LED is attached to
-int32_t frequency = 25000;  // frequency of the pwn-signal (in Hz)
+// the pin that the fan is attached to
+int fan = 3;
 
-
-// potentiometer
-const int poti = A0;        // the analog pin, the poti is attached to
-
-// needed as globals??
-int n = 1;                  // initialize counter
+// the analog pin, the potentiometer is attached to
+const int poti = A0;
 
 
 #endif // _GLOBALS_H

@@ -10,6 +10,8 @@
 #include <Time.h>             // http://playground.arduino.cc/Code/Time
 #include <Wire.h>             // http://arduino.cc/en/Reference/Wire
 #include <PWM.h>              // XYZ
+#include <peltierControl.h>   // selfmade library specially for the peltier element
+
 
 #include "config.h"
 #include "globals.h"

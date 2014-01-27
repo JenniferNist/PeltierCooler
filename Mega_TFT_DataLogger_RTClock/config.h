@@ -7,6 +7,8 @@
  ** MOSI - pin 51
  ** MISO - pin 50
  ** CLK - pin 52
+ ** fan - pin 3;  
+ ** poti - pin A0
  */
 
 // For the breakout, you can use any (2 or) 3 pins

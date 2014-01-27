@@ -3,6 +3,8 @@
 */
 void initFan() {
   
+  int32_t frequency = 25000;  // frequency of the pwn-signal (in Hz)
+  
   //initialize all timers except for 0, to save time keeping functions
   InitTimersSafe(); 
 

@@ -60,6 +60,7 @@ void loop()
   tftPrintTime();
   tftPrintTemp();
   tftPrintFanSpeed();
+  tftPrintPeltierInfo();
   
   peltierControl();
   

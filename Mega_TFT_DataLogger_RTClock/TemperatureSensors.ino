@@ -36,7 +36,7 @@ void locateTempSensors() {
 void getTempData() {
 
   oldInputData = inputData;
-
+    
   // call sensors.requestTemperatures() to issue a global temperature 
   // request to all devices on the bus
   sensors.requestTemperatures();

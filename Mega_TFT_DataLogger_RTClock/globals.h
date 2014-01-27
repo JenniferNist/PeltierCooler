@@ -27,6 +27,16 @@ typedef struct errorFlagType {
 
 errorFlagType errorFlag;
 
+// define struct for peltier information
+typedef struct peltierInfoType {
+  boolean peltierHeating = false;
+  boolean peltierCooling = false;
+  int peltierPercentage = 0;
+};
+
+peltierInfoType peltierInfo;
+
+
 // varialbes for RTClock
 time_t t;
 
@@ -47,9 +57,9 @@ int fan = 3;
 const int poti = A0;
 
 // pins for peltier
-int pwmPin = 5;		                                // Define intensity/pwm pin as 5
-int heatingPin = 6;		                        // Define heating pin as 6
-int coolingPin = 7;		                        // Define cooling pin as 7
+int pwmPin = 5;		           // Define intensity/pwm pin as 5
+int heatingPin = 6;		   // Define heating pin as 6
+int coolingPin = 7;		   // Define cooling pin as 7
 
 
 #endif // _GLOBALS_H

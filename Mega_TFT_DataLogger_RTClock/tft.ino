@@ -129,6 +129,13 @@ void tftPrintFanSpeed() {
 }
 
 /*
+** print information about the peltier
+*/
+void tftPrintPeltierInfo() {
+  
+}
+
+/*
 ** print errors
  */
 void checkForErrors() {

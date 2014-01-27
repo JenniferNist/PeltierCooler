@@ -1,5 +1,5 @@
 /*
-** initialize RTClock
+ ** initialize RTClock
  */
 void initRTC() {
   //setSyncProvider() causes the Time library to synchronize with the
@@ -45,4 +45,5 @@ void updateTimeFromSerial() {
     }
   }
 } 
+
 

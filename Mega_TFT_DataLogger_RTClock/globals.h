@@ -8,6 +8,7 @@ typedef struct inputDataType {
   float tempBrown = 0;
   float tempWater = 0;
   float tempTarget = 24;
+  int fanSpeed = 0;           // fan speed in percentage
 };
 
 inputDataType inputData;
@@ -34,12 +35,19 @@ String dataLogString = "";
 // arrays to hold Temperature Sensor device addresses
 DeviceAddress blueTermometer, brownTermometer, waterTermometer;
 
-// in case of an error
-boolean errorBlue, errorBrown, errorWater;
-boolean errorInitSD;
-
 // read three sensors and append to the string:
 char buffer[40];
+
+// variables for fan
+int fan = 3;                // the pin that the LED is attached to
+int32_t frequency = 25000;  // frequency of the pwn-signal (in Hz)
+
+
+// potentiometer
+const int poti = A0;        // the analog pin, the poti is attached to
+
+// needed as globals??
+int n = 1;                  // initialize counter
 
 
 #endif // _GLOBALS_H

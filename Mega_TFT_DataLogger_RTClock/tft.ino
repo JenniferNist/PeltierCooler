@@ -54,6 +54,12 @@ void writeStaticText() {
   tft.print("Water :");
   tft.setCursor(90,16);
   tft.println("C");
+  
+  // fan speed
+  tft.setCursor(0, 32);
+  tft.print("Fan speed: ");
+  tft.setCursor(40, 32);
+  tft.println("%");
 
 }
 
@@ -106,6 +112,20 @@ void tftPrintTemp() {
   tft.setTextColor(ST7735_WHITE);
   tft.println(inputData.tempWater);
 
+}
+
+/*
+** print the currect speed of the fan on tft
+** but befor: print old time in black color, to vanisch the old data
+** oldInputData set in getTempData()
+*/
+void tftPrintFanSpeed() {
+  tft.setCursor(32, 32);
+  tft.setTextColor(ST7735_BLACK);
+  tft.print(oldInputData.fanSpeed);
+  tft.setCursor(32, 32);
+  tft.setTextColor(ST7735_WHITE);
+  tft.print(inputData.fanSpeed);
 }
 
 /*

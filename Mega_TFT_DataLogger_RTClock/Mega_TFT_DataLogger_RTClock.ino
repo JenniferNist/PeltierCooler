@@ -6,10 +6,10 @@
 #include <OneWire.h>               
 #include <DallasTemperature.h>
 
-#include <DS3232RTC.h>        //http://github.com/JChristensen/DS3232RTC
-#include <Time.h>             //http://playground.arduino.cc/Code/Time
-#include <Wire.h>             //http://arduino.cc/en/Reference/Wire
-
+#include <DS3232RTC.h>        // http://github.com/JChristensen/DS3232RTC
+#include <Time.h>             // http://playground.arduino.cc/Code/Time
+#include <Wire.h>             // http://arduino.cc/en/Reference/Wire
+#include <PWM.h>              // XYZ
 
 #include "config.h"
 #include "globals.h"
@@ -32,11 +32,11 @@ void setup()
 
   initRTC();
   initTempSensors();
+  initFan();
   initTft();
   initSD();
 
   locateTempSensors();
-  delay(1000);
   checkForErrors();
   delay(4000); 
   
@@ -48,9 +48,14 @@ void loop()
 {
   
   updateTimeFromSerial();
+  
   getTempData();
+  getFanSpeed();
+  
   tftPrintTime();
   tftPrintTemp();
+  tftPrintFanSpeed();
+  
   logDataOnSD();
 
 }

@@ -21,7 +21,8 @@ typedef struct errorFlagType {
   boolean errorBlue = false;
   boolean errorBrown = false;
   boolean errorWater = false;
-//  boolean errorFan = false;  --> not jet implemented --> how?
+// boolean errorFan = false;  --> not jet implemented --> how?
+// boolean errorPeltier = false --> not jet implemented --> how?
 };
 
 errorFlagType errorFlag;
@@ -44,6 +45,11 @@ int fan = 3;
 
 // the analog pin, the potentiometer is attached to
 const int poti = A0;
+
+// pins for peltier
+int pwmPin = 5;		                                // Define intensity/pwm pin as 5
+int heatingPin = 6;		                        // Define heating pin as 6
+int coolingPin = 7;		                        // Define cooling pin as 7
 
 
 #endif // _GLOBALS_H

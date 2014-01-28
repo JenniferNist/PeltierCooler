@@ -47,7 +47,7 @@ void getTempData() {
 }
 
 /*
-**
+** target temperature (tempTarget) is changable by potentiometer
 */
 void setTempTarget(){
 

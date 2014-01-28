@@ -69,7 +69,15 @@ void writeStaticText() {
   // peltier element
   tft.setCursor(0, 72);
   tft.print("Peltier is ");
+  
+  // print next word in an different color and size
+  tft.setTextSize(2);
+  tft.setTextColor(ST7735_GREEN);
   tft.println("off");
+  
+  // resetcolor and size
+  tft.fillScreen(ST7735_BLACK);
+  tft.setTextSize(1);
 
 }
 
@@ -99,7 +107,8 @@ void tftPrintTime() {
  */
 void tftPrintTemp() {
 
-  // sensor blue
+  // sensor blue 
+  // overwrite only if the value has changed
   if (inputData.tempBlue != oldInputData.tempBlue) {
     tft.setCursor(45,0);
     tft.setTextColor(ST7735_BLACK);
@@ -110,6 +119,7 @@ void tftPrintTemp() {
   }
 
   // sensor brown
+  // overwrite only if the value has changed
   if  (inputData.tempBrown != oldInputData.tempBrown) {
     tft.setCursor(45,8);
     tft.setTextColor(ST7735_BLACK);
@@ -120,6 +130,7 @@ void tftPrintTemp() {
   }
 
   // sensor water
+  // overwrite only if the value has changed
   if  (inputData.tempWater != oldInputData.tempWater) {
     tft.setCursor(45,16);
     tft.setTextColor(ST7735_BLACK);
@@ -130,7 +141,8 @@ void tftPrintTemp() {
   }
   
   // target temperature
-  if (inputData.targetTemperature != oldInputData.targetTemperature) {
+  // overwrite only if the value has changed
+  if (inputData.tempTarget != oldInputData.tempTarget) {
     // TODO: check for position! is 45 correct??
     tft.setCursor(45,24);
     tft.setTextColor(ST7735_BLACK);
@@ -167,7 +179,15 @@ void tftPrintPeltierInfo() {
     if (peltierInfo.peltierHeating != oldPeltierInfo.peltierHeating) {
       tft.setCursor(68, 72);
       tft.fillRect(68, 72, 160, 7, ST7735_BLACK);
+      
+      // print next word in an different color and size
+      tft.setTextSize(2);
+      tft.setTextColor(ST7735_RED);
       tft.println("heating");
+      
+      // reset color and size
+      tft.fillScreen(ST7735_BLACK);
+      tft.setTextSize(1);
     }
   }
   else if (peltierInfo.peltierCooling) {
@@ -176,8 +196,16 @@ void tftPrintPeltierInfo() {
     if (peltierInfo.peltierCooling != oldPeltierInfo.peltierCooling) {
       tft.setCursor(68, 72);
       tft.fillRect(68, 72, 160, 7, ST7735_BLACK);
+      
+      // print next word in an different color and size
+      tft.setTextSize(2);
+      tft.setTextColor(ST7735_BLUE);
       tft.println("cooling");
-    }
+      
+      // reset color and size
+      tft.fillScreen(ST7735_BLACK);
+      tft.setTextSize(1);
+     }
   }
   else if (!peltierInfo.peltierHeating && !peltierInfo.peltierCooling) {
     
@@ -186,9 +214,16 @@ void tftPrintPeltierInfo() {
         (peltierInfo.peltierHeating != oldPeltierInfo.peltierHeating)) {
           tft.setCursor(68, 72);
           tft.fillRect(68, 72, 160, 7, ST7735_BLACK);
+          
+          // print next word in an different color and size
+          tft.setTextSize(2);
+          tft.setTextColor(ST7735_GREEN);
           tft.println("off");
-    }
-    
+          
+          // resetcolor and size
+          tft.fillScreen(ST7735_BLACK);
+          tft.setTextSize(1);
+    }    
   } 
 }
 

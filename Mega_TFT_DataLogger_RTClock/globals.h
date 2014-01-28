@@ -31,11 +31,12 @@ errorFlagType errorFlag;
 typedef struct peltierInfoType {
   boolean peltierHeating = false;
   boolean peltierCooling = false;
-  boolean peltierChangeMode = false;
+  //boolean peltierChangeMode = false;
   // int peltierPercentage = 0;
 };
 
 peltierInfoType peltierInfo;
+peltierInfoType oldPeltierInfo;
 
 
 // varialbes for RTClock

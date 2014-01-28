@@ -15,30 +15,14 @@ void initPeltier() {
 */
 void peltierControl() {
   
+  oldPeltierInfo = peltierInfo;
   float tempDifference = inputData.tempWater - inputData.tempTarget;
   
   // tempDifference < 0: water is to cold (20C (tempWater) - 24C (tempTarget) = -4 (tempDifference))
   if (tempDifference < -0.2) {
     
-    // check wether the peltier was cooling before
-    // cooling: heating = false, cooling = true)
-    // set mode changed flag as true
-    if (!peltierInfo.peltierHeating && peltierInfo.peltierCooling) {
-      peltierInfo.peltierHeating = true;
-      peltierInfo.peltierCooling = false;
-      peltierInfo.peltierChangeMode = true;
-    }
-    // check wether the peltier was off before
-    // off: heating = false, cooling = false
-    // set mode changed flag as true
-    if (!peltierInfo.peltierHeating && !peltierInfo.peltierCooling {
-      peltierInfo.peltierHeating = true;
-      peltierInfo.peltierChangeMode = true;
-    }
-    // if nothing changed, set the change mode falg as false
-    else {
-      peltierInfo.peltierChangeMode = false;
-    }
+    peltierInfo.peltierHeating = true;
+    peltierInfo.peltierCooling = false;
     
     // set intensity of peltier depending on the temperature difference
     if ((tempDifference < -0.2) && (tempDifference >= -0.5)) PC.heat(50);
@@ -52,26 +36,9 @@ void peltierControl() {
   // tempDifference > 0: water is to warm (27C (tempWater) - 24C (tempTarget) = 3 (tempDifference))
   if (tempDifference > 0.2) {
     
-    // check wether the peltier was heating before
-    // heating: heating = true, cooling = false)
-    // set mode changed flag as true
-    if (peltierInfo.peltierHeating && !peltierInfo.peltierCooling) {
-      peltierInfo.peltierHeating = false;
-      peltierInfo.peltierCooling = true;
-      peltierInfo.peltierChangeMode = true;
-    }
-    // check wether the peltier was off before
-    // off: heating = false, cooling = false
-    // set mode changed flag as true
-    if (!peltierInfo.peltierHeating && !peltierInfo.peltierCooling {
-      peltierInfo.peltierCooling = true;
-      peltierInfo.peltierChangeMode = true;
-    }
-    // if nothing changed, set the change mode falg as false
-    else {
-      peltierInfo.peltierChangeMode = false;
-    }
-    
+    peltierInfo.peltierHeating = false;
+    peltierInfo.peltierCooling = true;
+
     // set intensity of peltier depending on the temperature difference
     if ((tempDifference > 0.2) && (tempDifference <= 0.5)) PC.cool(50);
     if ((tempDifference > 0.5) && (tempDifference <= 1)) PC.cool(75);
@@ -82,17 +49,8 @@ void peltierControl() {
   }
   
   else {
-    // peltier if off
-    // if peltier was cooling or heating before
-    if (peltierInfo.peltierHeating || peltierInfo.peltierCooling) {
-      peltierInfo.peltierCooling = false;
-      peltierInfo.peltierHeating = false;
-      peltierInfo.peltierChangeMode = true;
+    peltierInfo.peltierCooling = false;
+    peltierInfo.peltierHeating = false;
+
     }
-    // if nothing changed, set the change mode falg as false
-    else {
-      peltierInfo.peltierChangeMode = false;
-    }
-  }
-  
 }

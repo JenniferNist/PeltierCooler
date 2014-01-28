@@ -17,6 +17,7 @@ void peltierControl() {
   
   oldPeltierInfo = peltierInfo;
   float tempDifference = inputData.tempWater - inputData.tempTarget;
+  int intensity = 0;
   
   // tempDifference < 0: water is to cold (20C (tempWater) - 24C (tempTarget) = -4 (tempDifference))
   if (tempDifference < -0.2) {
@@ -25,12 +26,9 @@ void peltierControl() {
     peltierInfo.peltierCooling = false;
     
     // set intensity of peltier depending on the temperature difference
-    if ((tempDifference < -0.2) && (tempDifference >= -0.5)) PC.heat(50);
-    if ((tempDifference < -0.5) && (tempDifference >= -1)) PC.heat(75);
-    if ((tempDifference < -1) && (tempDifference >= -1.5)) PC.heat(100);
-    if ((tempDifference < -1.5) && (tempDifference >= -2)) PC.heat(150);
-    if ((tempDifference < -2) && (tempDifference >= -2.5)) PC.heat(200);
-    else PC.heat(253);           // max intensity: 255
+    intensity = map(tempDifference, -0.2, -2.5, 0, 255);
+    PC.heat(intensity);
+    if (tempDifference < -2.5) PC.heat(255);       // max intensity: 255
   }
     
   // tempDifference > 0: water is to warm (27C (tempWater) - 24C (tempTarget) = 3 (tempDifference))
@@ -38,14 +36,11 @@ void peltierControl() {
     
     peltierInfo.peltierHeating = false;
     peltierInfo.peltierCooling = true;
-
+    
     // set intensity of peltier depending on the temperature difference
-    if ((tempDifference > 0.2) && (tempDifference <= 0.5)) PC.cool(50);
-    if ((tempDifference > 0.5) && (tempDifference <= 1)) PC.cool(75);
-    if ((tempDifference > 1) && (tempDifference <= 1.5)) PC.cool(100);
-    if ((tempDifference > 1.5) && (tempDifference <= 2)) PC.cool(150);
-    if ((tempDifference > 2) && (tempDifference <= 2.5)) PC.cool(200);
-    else PC.cool(253);
+    intensity = map(tempDifference, 0.2, 2.5, 0, 255);
+    PC.cool(intensity);
+    if (tempDifference > 2.5) PC.cool(255);
   }
   
   else {

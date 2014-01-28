@@ -58,6 +58,7 @@ void loop()
 {
   
   updateTimeFromSerial();
+  setTempTarget();
   
   getTempData();
   getFanSpeed();

@@ -55,14 +55,19 @@ void writeStaticText() {
   tft.setCursor(90,16);
   tft.println("C");
   
+  // target temperature
+  tft.setCursor(0, 24);
+  tft.print("The target temperature is: ");
+  tft.println(inputData.tempTarget);
+  
   // fan speed
-  tft.setCursor(0, 32);
+  tft.setCursor(0, 40);
   tft.print("Fan speed: ");
   tft.setCursor(90, 32);
   tft.println("%");
   
   // peltier element
-  tft.setCursor(0, 64);
+  tft.setCursor(0, 72);
   tft.print("Peltier is ");
   tft.println("off");
 
@@ -77,12 +82,13 @@ void tftPrintTime() {
   t = now();
   if (t != tLast) {
     tLast = t;
-
+    
     dateStringGenerator();
 
-    tft.fillRect(0, 48, 126, 7, ST7735_BLACK);
-    tft.setCursor(0,48);
+    tft.fillRect(0, 56, 126, 7, ST7735_BLACK);
+    tft.setCursor(0,56);
     tft.println(dateString);
+
   }
 } 
 
@@ -122,6 +128,17 @@ void tftPrintTemp() {
     tft.setTextColor(ST7735_WHITE);
     tft.println(inputData.tempWater);
   }
+  
+  // target temperature
+  if (inputData.targetTemperature != oldInputData.targetTemperature) {
+    // TODO: check for position! is 45 correct??
+    tft.setCursor(45,24);
+    tft.setTextColor(ST7735_BLACK);
+    tft.print(oldInputData.tempTarget);
+    tft.setCursor(45,24);
+    tft.setTextColor(ST7735_WHITE);
+    tft.println(inputData.tempTarget);
+  }
 }
 
 /*
@@ -131,10 +148,10 @@ void tftPrintTemp() {
 */
 void tftPrintFanSpeed() {
   if (inputData.fanSpeed != oldInputData.fanSpeed) {
-    tft.setCursor(72, 32);
+    tft.setCursor(72, 40);
     tft.setTextColor(ST7735_BLACK);
     tft.print(oldInputData.fanSpeed);
-    tft.setCursor(72, 32);
+    tft.setCursor(72, 40);
     tft.setTextColor(ST7735_WHITE);
     tft.print(inputData.fanSpeed);
   }
@@ -148,8 +165,8 @@ void tftPrintPeltierInfo() {
     
     // change output only if the peltier was not heating before!
     if (peltierInfo.peltierHeating != oldPeltierInfo.peltierHeating) {
-      tft.setCursor(68, 64);
-      tft.fillRect(68, 64, 160, 7, ST7735_BLACK);
+      tft.setCursor(68, 72);
+      tft.fillRect(68, 72, 160, 7, ST7735_BLACK);
       tft.println("heating");
     }
   }
@@ -157,8 +174,8 @@ void tftPrintPeltierInfo() {
     
     // change output only if the peltier was not cooling before!
     if (peltierInfo.peltierCooling != oldPeltierInfo.peltierCooling) {
-      tft.setCursor(68, 64);
-      tft.fillRect(68, 64, 160, 7, ST7735_BLACK);
+      tft.setCursor(68, 72);
+      tft.fillRect(68, 72, 160, 7, ST7735_BLACK);
       tft.println("cooling");
     }
   }
@@ -167,8 +184,8 @@ void tftPrintPeltierInfo() {
     // change output on tft onlay if the peltier was not off before!
     if ((peltierInfo.peltierCooling != oldPeltierInfo.peltierCooling) &&
         (peltierInfo.peltierHeating != oldPeltierInfo.peltierHeating)) {
-          tft.setCursor(68, 64);
-          tft.fillRect(68, 64, 160, 7, ST7735_BLACK);
+          tft.setCursor(68, 72);
+          tft.fillRect(68, 72, 160, 7, ST7735_BLACK);
           tft.println("off");
     }
     

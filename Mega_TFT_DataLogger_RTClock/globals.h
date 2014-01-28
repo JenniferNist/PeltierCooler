@@ -48,6 +48,11 @@ String dataLogString = "";
 // arrays to hold Temperature Sensor device addresses
 DeviceAddress blueTermometer, brownTermometer, waterTermometer;
 
+// range for the changable target temperature
+// target Temperature (tempTarget) by potentiometer
+float minTemperature = 15;
+float maxTemperature = 30;
+
 // set adressos of the devices (temperature sensors)
 // --> does not compile jet!!
 // blueTermometer = 288CA5C50200009F;

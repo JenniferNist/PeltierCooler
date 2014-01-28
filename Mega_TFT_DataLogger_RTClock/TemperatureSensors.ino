@@ -46,5 +46,16 @@ void getTempData() {
 
 }
 
+/*
+**
+*/
+void setTempTarget(){
 
-
+  float tempTargetRaw = analogRead(poti); // return from analogRead [0,1023]
+  
+  // mapping [0,1023] to [minTemperature,maxTemperature] because 
+  // the temperature should not go under minTemperature and not above maxTemperature
+  inputData.tempTarget = map(tempTargetRaw, 0, 1023, minTemperature, maxTemperature);
+  // TODO: want to get values in quarters, like 24.00, 24.25, 24.50 and 24.75 now from 24.01 to 24.99? 
+  
+}

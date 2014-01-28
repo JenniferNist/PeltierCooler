@@ -93,29 +93,34 @@ void tftPrintTime() {
 void tftPrintTemp() {
 
   // sensor blue
-  tft.setCursor(45,0);
-  tft.setTextColor(ST7735_BLACK);
-  tft.print(oldInputData.tempBlue);
-  tft.setCursor(45,0);
-  tft.setTextColor(ST7735_WHITE);
-  tft.print(inputData.tempBlue);
+  if (inputData.tempBlue != oldInputData.tempBlue) {
+    tft.setCursor(45,0);
+    tft.setTextColor(ST7735_BLACK);
+    tft.print(oldInputData.tempBlue);
+    tft.setCursor(45,0);
+    tft.setTextColor(ST7735_WHITE);
+    tft.print(inputData.tempBlue);
+  }
 
   // sensor brown
-  tft.setCursor(45,8);
-  tft.setTextColor(ST7735_BLACK);
-  tft.print(oldInputData.tempBrown);
-  tft.setCursor(45,8);
-  tft.setTextColor(ST7735_WHITE);
-  tft.print(inputData.tempBrown);
+  if  (inputData.tempBrown != oldInputData.tempBrown) {
+    tft.setCursor(45,8);
+    tft.setTextColor(ST7735_BLACK);
+    tft.print(oldInputData.tempBrown);
+    tft.setCursor(45,8);
+    tft.setTextColor(ST7735_WHITE);
+    tft.print(inputData.tempBrown);
+  }
 
   // sensor water
-  tft.setCursor(45,16);
-  tft.setTextColor(ST7735_BLACK);
-  tft.print(oldInputData.tempWater);
-  tft.setCursor(45,16);
-  tft.setTextColor(ST7735_WHITE);
-  tft.println(inputData.tempWater);
-
+  if  (inputData.tempWater != oldInputData.tempWater) {
+    tft.setCursor(45,16);
+    tft.setTextColor(ST7735_BLACK);
+    tft.print(oldInputData.tempWater);
+    tft.setCursor(45,16);
+    tft.setTextColor(ST7735_WHITE);
+    tft.println(inputData.tempWater);
+  }
 }
 
 /*
@@ -124,12 +129,14 @@ void tftPrintTemp() {
 ** oldInputData set in getTempData()
 */
 void tftPrintFanSpeed() {
-  tft.setCursor(72, 32);
-  tft.setTextColor(ST7735_BLACK);
-  tft.print(oldInputData.fanSpeed);
-  tft.setCursor(72, 32);
-  tft.setTextColor(ST7735_WHITE);
-  tft.print(inputData.fanSpeed);
+  if (inputData.fanSpeed != oldInputData.fanSpeed) {
+    tft.setCursor(72, 32);
+    tft.setTextColor(ST7735_BLACK);
+    tft.print(oldInputData.fanSpeed);
+    tft.setCursor(72, 32);
+    tft.setTextColor(ST7735_WHITE);
+    tft.print(inputData.fanSpeed);
+  }
 }
 
 /*
@@ -137,19 +144,28 @@ void tftPrintFanSpeed() {
 */
 void tftPrintPeltierInfo() {
   if (peltierInfo.peltierHeating) {
-    tft.setCursor(68, 64);
-    tft.fillRect(68, 64, 160, 7, ST7735_BLACK);
-    tft.println("heating");
+    // change output only if the peltier was not heating before!
+    if (peltierInfo.peltierChangeMode) {
+      tft.setCursor(68, 64);
+      tft.fillRect(68, 64, 160, 7, ST7735_BLACK);
+      tft.println("heating");
+    }
   }
   else if (peltierInfo.peltierCooling) {
-    tft.setCursor(68, 64);
-    tft.fillRect(68, 64, 160, 7, ST7735_BLACK);
-    tft.println("cooling");
+    // change output only if the peltier was not cooling before!
+    if (peltierInfo.peltierChangeMode) {
+      tft.setCursor(68, 64);
+      tft.fillRect(68, 64, 160, 7, ST7735_BLACK);
+      tft.println("cooling");
+    }
   }
   else if (!peltierInfo.peltierHeating && !peltierInfo.peltierCooling) {
-    tft.setCursor(68, 64);
-    tft.fillRect(68, 64, 160, 7, ST7735_BLACK);
-    tft.println("off");
+    if (peltierInfo.peltierChangeMode) {
+      // change output only if the peltier was not cooling before!
+      tft.setCursor(68, 64);
+      tft.fillRect(68, 64, 160, 7, ST7735_BLACK);
+      tft.println("off");
+    }
   } 
 }
 

@@ -31,7 +31,8 @@ errorFlagType errorFlag;
 typedef struct peltierInfoType {
   boolean peltierHeating = false;
   boolean peltierCooling = false;
-  int peltierPercentage = 0;
+  boolean peltierChangeMode = false;
+  // int peltierPercentage = 0;
 };
 
 peltierInfoType peltierInfo;

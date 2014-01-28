@@ -230,7 +230,7 @@ void tftPrintPeltierInfo() {
 /*
 ** print errors
  */
-void checkForErrors() {
+void ceckForInitErrors() {
 
   if(errorFlag.errorInitSD) {
     tft.println("Initializing SD card...");
@@ -250,7 +250,6 @@ void checkForErrors() {
   if (errorFlag.errorBlue) tft.println("No blue termometer");
   if (errorFlag.errorBrown) tft.println("No brown termometer");
   if (errorFlag.errorWater) tft.println("No water termometer");
-  //if (errorFlag.errorBlue || errorFlag.errorBrown || errorFlag.errorWater) while(true);
 
 }
 

@@ -47,7 +47,7 @@ void setup()
   initSD();
 
   locateTempSensors();
-  checkForErrors();
+  ceckForInitErrors();
   delay(2000); 
   
   writeStaticText();
@@ -71,7 +71,8 @@ void loop()
   tftPrintPeltierInfo();
     
   logDataOnSD();
-
+  checkForErrors();
+  
 }
 
 

@@ -48,7 +48,7 @@ void setup()
 
   locateTempSensors();
   checkForErrors();
-  delay(4000); 
+  delay(2000); 
   
   writeStaticText();
 
@@ -62,13 +62,13 @@ void loop()
   getTempData();
   getFanSpeed();
   
+  peltierControl();
+
   tftPrintTime();
   tftPrintTemp();
   tftPrintFanSpeed();
   tftPrintPeltierInfo();
-  
-  peltierControl();
-  
+    
   logDataOnSD();
 
 }

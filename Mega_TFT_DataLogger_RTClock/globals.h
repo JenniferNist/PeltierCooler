@@ -48,7 +48,14 @@ String dataLogString = "";
 // arrays to hold Temperature Sensor device addresses
 DeviceAddress blueTermometer, brownTermometer, waterTermometer;
 
+// set adressos of the devices (temperature sensors)
+// --> does not compile jet!!
+// blueTermometer = 288CA5C50200009F;
+// brownTermometer = 288785C50200009F;
+// waterTermometer = not jet known;
+
 // read three sensors and append to the string:
 char buffer[40];
+
 
 #endif // _GLOBALS_H

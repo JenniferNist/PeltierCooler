@@ -12,15 +12,16 @@ void initFan() {
 ** calculate fan speed from resistance given by potentiometer
 */
 void getFanSpeed() {
-    
-  int speed = analogRead(poti); // return from analogRead [0,1023]
   
-  // mapping [0,1023] to [30,255] because fan needs values[0,255] 
-  // speedFan is the value fot the fan: not under 30, but up to the top (255)
-  int speedFan = map(speed, 0, 1023, 30, 255);  
-  // for the output on the tft is a range from 0 to 100 (in percentage) needed
-  inputData.fanSpeed = map(speedFan, 0, 256, 0, 100); 
+  // calculate fan speed depending from the temperature on the copper
+  // copper is the heat conductor of the peltier
+
+  // fan needs values[0,255]
+  int speedFan = map(inputData.tempBrown, 24, 60, 0, 255);
+  speedFan = map(inputData.tempBrown, -20, 22, 0, 255);
   
+  if ((inputData.tempBrown <-20) || (inputData.tempBrown > 60)) speedFan = 255;
+
   // use this functions instead of analogWrite on 'initialized' pins
   // set the value of a pwm output pin
   pwmWrite(pwmFanPin, speedFan);

@@ -16,9 +16,14 @@ void checkForErrors() {
   // should any sensor stop working or is not plugged in stop immediatly
   while(inputData.tempBlue <= -85.00 || inputData.tempBrown <= -85.00 || inputData.tempBrown <= -85.00) {
     delay(1000);
-    if (inputData.tempBlue <= -85.00 || inputData.tempBrown <= -85.00 || inputData.tempBrown <= -85.00) {
-      PC.stop();
-      pwmWrite(pwmFanPin, 0);
+    if (inputData.tempBlue <= -85.00 || inputData.tempBrown <= -85.00 || inputData.tempBrown <= -85.00) PC.stop();
+  }
+  
+  // the peltier shall not get too hot
+  if (inputData.tempBrown > 90) {
+    while (inputData.tempBrown > 70) {
+      PC.cool(255);
     }
   }
+  
 }

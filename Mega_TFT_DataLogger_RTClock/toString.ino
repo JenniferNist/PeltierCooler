@@ -41,6 +41,12 @@ String dataLogStringGenerator() {
   dataLogString += floatToString(buffer, inputData.tempBrown, 4, 6);
   dataLogString += ",";
   dataLogString += floatToString(buffer, inputData.tempWater, 4, 6);
+  dataLogString += ",";
+  dataLogString += "heating:";
+  dataLogString += String(peltierInfo.peltierHeating);
+  dataLogString += ",";
+  dataLogString += "cooling:";
+  dataLogString += String(peltierInfo.peltierCooling);
 
   return dataLogString;
 

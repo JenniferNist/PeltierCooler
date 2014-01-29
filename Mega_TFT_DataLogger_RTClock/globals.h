@@ -21,25 +21,25 @@ typedef struct errorFlagType {
   boolean errorBlue = false;
   boolean errorBrown = false;
   boolean errorWater = false;
-// boolean errorFan = false;  --> not jet implemented --> how?
-// boolean errorPeltier = false --> not jet implemented --> how?
+  // boolean errorFan = false;  --> not jet implemented --> how?
+  // boolean errorPeltier = false --> not jet implemented --> how?
 };
 
 errorFlagType errorFlag;
 
 // define struct for peltier information
-typedef struct peltierInfoType {
-  boolean peltierHeating = false;
-  boolean peltierCooling = false;
-  // int peltierPercentage = 0;
-};
+//typedef struct peltierInfoType {
+//  boolean peltierHeating = false;
+//  boolean peltierCooling = false;
+int peltierPwmValue = 0; // [-255;255]
+//};
 
-peltierInfoType peltierInfo;
-peltierInfoType oldPeltierInfo;
+//peltierInfoType peltierInfo;
+//peltierInfoType oldPeltierInfo;
 
 
 // varialbes for RTClock
-time_t t;
+time_t currentTime;
 
 // strings for output on tft and log on sd-card
 String dateString = "";
@@ -64,3 +64,5 @@ char buffer[40];
 
 
 #endif // _GLOBALS_H
+
+

@@ -1,6 +1,6 @@
-/*
-** initialize sd-card
- ** set flag, wether sd-card was found or not
+/**
+ * initialize sd-card
+ * set flag, wether sd-card was found or not
  */
 void initSD() {
 
@@ -9,11 +9,11 @@ void initSD() {
   }
 }
 
-/*
-** create dataLogString
- ** open (and create if its not existing) log file
- ** write information (date and temperature of each sensor) in  log file
- ** call error function in case file couldn't be opend (created)
+/**
+ * create dataLogString
+ * open (and create if its not existing) log file
+ * write information (date and temperature of each sensor) in  log file
+ * call error function in case file couldn't be opend (created)
  */
 void logDataOnSD() {
 
@@ -33,5 +33,6 @@ void logDataOnSD() {
     errorFlag.errorTempData = true;
   } 
 } 
+
 
 

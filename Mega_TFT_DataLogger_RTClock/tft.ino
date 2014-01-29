@@ -1,6 +1,6 @@
 
-/*
-** count and print the number of found devices on tft 
+/**
+ * count and print the number of found devices on tft 
  */
 void tftFoundDevices() {
 
@@ -15,8 +15,8 @@ void tftFoundDevices() {
 
 }
 
-/*
-** initialize tft, black screen and landscape
+/**
+ * initialize tft, black screen and landscape
  */
 void initTft() {
 
@@ -33,8 +33,8 @@ void initTft() {
 
 }
 
-/*
-** write static text on tft
+/**
+ * write static text on tft
  */
 void writeStaticText() {
 
@@ -54,46 +54,44 @@ void writeStaticText() {
   tft.print("Water :");
   tft.setCursor(90,16);
   tft.println("C");
-  
+
   // target temperature
   tft.setCursor(0, 24);
-  tft.print("The target temperature is: ");
-  tft.println(inputData.tempTarget);
-  
+  tft.print("Target:");
+  tft.setCursor(90,24);
+  tft.println("C");
+
   // fan speed
   tft.setCursor(0, 40);
   tft.print("Fan speed: ");
-  tft.setCursor(90, 32);
+  tft.setCursor(90, 40);
   tft.println("%");
-  
+
   // peltier element
-  tft.setCursor(0, 72);
+  tft.setCursor(0, 80);
   tft.print("Peltier is ");
-  
-  // print next word in an different color and size
-  tft.setTextSize(2);
+
+  // print next word in an different color
   tft.setTextColor(ST7735_GREEN);
-  tft.println("off");
-  
-  // resetcolor and size
-  tft.fillScreen(ST7735_BLACK);
-  tft.setTextSize(1);
+  tft.println(" off");
+  // resetcolor
+  tft.setTextColor(ST7735_WHITE);
 
 }
 
-/*
-** if the time has changed, print the current time on tft
+/**
+ *if the time has changed, print the current time on tft
  */
 void tftPrintTime() {
+
   static time_t tLast;
 
-  t = now();
-  if (t != tLast) {
-    tLast = t;
-    
+  if (currentTime != tLast) {
+    tLast = currentTime;
+
     dateStringGenerator();
 
-    tft.fillRect(0, 56, 126, 7, ST7735_BLACK);
+    tft.fillRect(0, 56, 126, 8, ST7735_BLACK);
     tft.setCursor(0,56);
     tft.println(dateString);
 
@@ -101,9 +99,9 @@ void tftPrintTime() {
 } 
 
 
-/*
-** print the currect temperatur values on tft
- ** but befor: print old time in black color, to vanisch the old data
+/**
+ * print the currect temperatur values on tft
+ * but befor: print old time in black color, to vanisch the old data
  */
 void tftPrintTemp() {
 
@@ -139,7 +137,7 @@ void tftPrintTemp() {
     tft.setTextColor(ST7735_WHITE);
     tft.println(inputData.tempWater);
   }
-  
+
   // target temperature
   // overwrite only if the value has changed
   if (inputData.tempTarget != oldInputData.tempTarget) {
@@ -153,103 +151,112 @@ void tftPrintTemp() {
   }
 }
 
-/*
-** print the currect speed of the fan on tft
-** but befor: print old time in black color, to vanisch the old data
-** oldInputData set in getTempData()
-*/
-void tftPrintFanSpeed() {
-  if (inputData.fanSpeed != oldInputData.fanSpeed) {
-    tft.setCursor(72, 40);
-    tft.setTextColor(ST7735_BLACK);
-    tft.print(oldInputData.fanSpeed);
-    tft.setCursor(72, 40);
-    tft.setTextColor(ST7735_WHITE);
-    tft.print(inputData.fanSpeed);
-  }
-}
-
-/*
-** print information about the peltier
-*/
-void tftPrintPeltierInfo() {
-  if (peltierInfo.peltierHeating) {
-    
-    // change output only if the peltier was not heating before!
-    if (peltierInfo.peltierHeating != oldPeltierInfo.peltierHeating) {
-      tft.setCursor(68, 72);
-      tft.fillRect(68, 72, 160, 7, ST7735_BLACK);
-      
-      // print next word in an different color and size
-      tft.setTextSize(2);
-      tft.setTextColor(ST7735_RED);
-      tft.println("heating");
-      
-      // reset color and size
-      tft.fillScreen(ST7735_BLACK);
-      tft.setTextSize(1);
-    }
-  }
-  else if (peltierInfo.peltierCooling) {
-    
-    // change output only if the peltier was not cooling before!
-    if (peltierInfo.peltierCooling != oldPeltierInfo.peltierCooling) {
-      tft.setCursor(68, 72);
-      tft.fillRect(68, 72, 160, 7, ST7735_BLACK);
-      
-      // print next word in an different color and size
-      tft.setTextSize(2);
-      tft.setTextColor(ST7735_BLUE);
-      tft.println("cooling");
-      
-      // reset color and size
-      tft.fillScreen(ST7735_BLACK);
-      tft.setTextSize(1);
-     }
-  }
-  else if (!peltierInfo.peltierHeating && !peltierInfo.peltierCooling) {
-    
-    // change output on tft onlay if the peltier was not off before!
-    if ((peltierInfo.peltierCooling != oldPeltierInfo.peltierCooling) &&
-        (peltierInfo.peltierHeating != oldPeltierInfo.peltierHeating)) {
-          tft.setCursor(68, 72);
-          tft.fillRect(68, 72, 160, 7, ST7735_BLACK);
-          
-          // print next word in an different color and size
-          tft.setTextSize(2);
-          tft.setTextColor(ST7735_GREEN);
-          tft.println("off");
-          
-          // resetcolor and size
-          tft.fillScreen(ST7735_BLACK);
-          tft.setTextSize(1);
-    }    
-  } 
-}
-
-/*
-** print errors
+/**
+ * print the currect speed of the fan on tft
+ * but befor: print old time in black color, to vanisch the old data
+ * oldInputData set in getTempData()
  */
-void ceckForInitErrors() {
+void tftPrintFanSpeed() {
 
-  if(errorFlag.errorInitSD) {
-    tft.println("Initializing SD card...");
-    tft.println("initialization failed!");
-    tft.println("");
-    
-  } 
-  else {
-    tft.println("Initializing SD card...");
-    tft.println("initialization done.");
-    tft.println("");
+  if (inputData.fanSpeed != oldInputData.fanSpeed) {
+    int printFanSpeed = map(inputData.fanSpeed, 0, 255, 0, 100);
+    tft.fillRect(65, 40, 20, 8, ST7735_BLACK);
+    tft.setCursor(65, 40);
+    tft.print(printFanSpeed);
   }
-  if (errorFlag.errorTempData) {
-    tft.println("Error opening tempData.txt");
-    tft.println("");
-  }
-  if (errorFlag.errorBlue) tft.println("No blue termometer");
-  if (errorFlag.errorBrown) tft.println("No brown termometer");
-  if (errorFlag.errorWater) tft.println("No water termometer");
-
 }
+
+/**
+ * print information about the peltier
+ */
+void tftPrintPeltierInfo() {
+
+  if (peltierPwmValue > 0) {
+
+    tft.setCursor(68, 80);
+    tft.fillRect(68, 80, 42, 8, ST7735_BLACK);
+
+    // print next word in an different color and size
+    tft.setTextColor(ST7735_RED);
+    tft.println("heating");
+    // reset color
+    tft.setTextColor(ST7735_WHITE);
+  }
+  else if (peltierPwmValue < 0) {
+
+    tft.setCursor(68, 80);
+    tft.fillRect(68, 80, 42, 8, ST7735_BLACK);
+
+    // print next word in an different color and size
+    tft.setTextColor(ST7735_CYAN);
+    tft.println("cooling");
+    // reset color
+    tft.setTextColor(ST7735_WHITE);
+  }
+  else if (peltierPwmValue == 0) {
+
+    tft.setCursor(68, 80);
+    tft.fillRect(68, 80, 42, 8, ST7735_BLACK);
+
+    // print next word in an different color and size
+    tft.setTextColor(ST7735_GREEN);
+    tft.println("off");
+    // resetcolor
+    tft.setTextColor(ST7735_WHITE);
+  }
+
+  tft.fillRect(0, 88, 30, 8, ST7735_BLACK);
+  tft.println(peltierPwmValue);
+}
+
+/**
+ * printed, if SD chard check failed
+ */
+void printSDFail() {
+
+  tft.println("Initializing SD card...");
+  tft.println("initialization failed!");
+  tft.println("");
+}
+
+/**
+ * printed, if SD chard check was ok
+ */
+void printSDOk() {
+
+  tft.println("Initializing SD card...");
+  tft.println("initialization done.");
+  tft.println("");
+}
+
+/**
+ * print error with opening (or creating) the logging file
+ */
+void printDataFail() {
+
+  tft.println("Error opening tempData.txt");
+  tft.println("");
+}
+
+/**
+ * blue termometer could't be found
+ */
+void printErrorTempBlue() {
+  tft.println("No blue termometer");
+}
+
+/**
+ * brown termometer could't be found
+ */
+void printErrorTempBrown() {
+  tft.println("No brown termometer");
+}
+
+/**
+ * water termometer could't be found
+ */
+void printErrorTempWater() {
+  tft.println("No water termometer");
+}
+
 

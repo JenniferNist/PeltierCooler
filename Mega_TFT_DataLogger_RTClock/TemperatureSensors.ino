@@ -1,5 +1,5 @@
-/*
-** initialize temperature sensors
+/**
+ * initialize temperature sensors
  */
 void initTempSensors() {
 
@@ -9,9 +9,9 @@ void initTempSensors() {
   sensors.setResolution(waterTermometer, TEMPERATURE_PRECISION);
 }
 
-/*
-** print found (temperatur) devices
- ** set flag, wether a termometer is found or not
+/**
+ * print found (temperatur) devices
+ * set flag, wether a termometer is found or not
  */
 void locateTempSensors() {
 
@@ -29,27 +29,31 @@ void locateTempSensors() {
   }   
 }
 
-/*
-** target temperature (tempTarget) is changable by potentiometer
-*/
+/**
+ * target temperature (tempTarget) is changable by potentiometer
+ */
 void setTempTarget(){
 
-  float tempTargetRaw = analogRead(poti); // return from analogRead [0,1023]
-  
+
   // mapping [0,1023] to [minTemperature,maxTemperature] because 
   // the temperature should not go under minTemperature and not above maxTemperature
-  inputData.tempTarget = map(tempTargetRaw, 0, 1023, minTemperature, maxTemperature);
+  int rawTarget = map(analogRead(poti), 0, 1023, minTemperature, maxTemperature);
+
+  inputData.tempTarget =  (rawTarget) ;
   // TODO: want to get values in quarters, like 24.00, 24.25, 24.50 and 24.75 now from 24.01 to 24.99? 
-  
+
 }
-/*
-** save old temperature values
- ** get new temperatur values
+/**
+ * save old temperature values
+ * get new temperatur values
  */
 void getTempData() {
 
+  // TODO: hier fehlerbehandlung einbauen wenn Werte nicht korrekt gelesen werden.
+  // falsche werte garnicht ans system weiterreichen!
+
   oldInputData = inputData;
-    
+
   // call sensors.requestTemperatures() to issue a global temperature 
   // request to all devices on the bus
   sensors.requestTemperatures();
@@ -58,4 +62,5 @@ void getTempData() {
   inputData.tempWater = sensors.getTempC(waterTermometer);
 
 }
+
 

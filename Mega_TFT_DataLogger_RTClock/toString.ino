@@ -1,28 +1,28 @@
 
-/*
-** create string with format "dd.mm.yyyy - hh:mm:ss""
- ** for tft
+/**
+ * create string with format "dd.mm.yyyy - hh:mm:ss""
+ * for tft
  */
 String dateStringGenerator() {
 
-  dateString = String(day(t));
+  dateString = String(day(currentTime));
   dateString += ".";
-  dateString += month(t); 
+  dateString += month(currentTime); 
   dateString += ".";
-  dateString += year(t);
+  dateString += year(currentTime);
   dateString += " - ";
-  dateString += hour(t);
+  dateString += hour(currentTime);
   dateString += ":";
-  dateString += minute(t);
+  dateString += minute(currentTime);
   dateString += ":";
-  dateString += second(t);
+  dateString += second(currentTime);
 
   return dateString;
 }
 
-/*
-** create string with format "dd,mm,yyyy,hh,mm,ss,tempBlue,tempBrown,tempWater"
- ** for data storage on sd-card
+/**
+ * create string with format "dd,mm,yyyy,hh,mm,ss,tempBlue,tempBrown,tempWater"
+ * for data storage on sd-card
  */
 String dataLogStringGenerator() {
 
@@ -42,19 +42,15 @@ String dataLogStringGenerator() {
   dataLogString += ",";
   dataLogString += floatToString(buffer, inputData.tempWater, 4, 6);
   dataLogString += ",";
-  dataLogString += "heating:";
-  dataLogString += String(peltierInfo.peltierHeating);
-  dataLogString += ",";
-  dataLogString += "cooling:";
-  dataLogString += String(peltierInfo.peltierCooling);
+  dataLogString += String(peltierPwmValue);
 
   return dataLogString;
 
 }
 
-/*
-** create a string from temp data from the buffer array
- ** floatToString(buffer string, float value, precision, minimum text width) 
+/**
+ * create a string from temp data from the buffer array
+ * floatToString(buffer string, float value, precision, minimum text width) 
  */
 char * floatToString(char * outstr, double val, byte precision, byte widthp){
   char temp[16]; //increase this if you need more digits than 15
@@ -112,5 +108,6 @@ char * floatToString(char * outstr, double val, byte precision, byte widthp){
 
   return outstr;
 }
+
 
 

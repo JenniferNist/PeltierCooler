@@ -1,5 +1,5 @@
-/*
- ** initialize RTClock
+/**
+ * initialize RTClock
  */
 void initRTC() {
   //setSyncProvider() causes the Time library to synchronize with the
@@ -10,8 +10,15 @@ void initRTC() {
   Serial.println();
 }
 
-/*
-** function to set date and time manually over serial monitor
+/**
+ *
+ */
+void getTime() {
+  currentTime = now(); 
+}
+
+/**
+ * function to set date and time manually over serial monitor
  */
 void updateTimeFromSerial() {
 
@@ -35,9 +42,9 @@ void updateTimeFromSerial() {
       tm.Hour = Serial.parseInt();
       tm.Minute = Serial.parseInt();
       tm.Second = Serial.parseInt();
-      t = makeTime(tm);
+      currentTime = makeTime(tm);
       RTC.write(tm);
-      setTime(t);        
+      setTime(currentTime);        
       Serial.print("RTC set to: ");
       Serial.println(dateString);
       //dump any extraneous input

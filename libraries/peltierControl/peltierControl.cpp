@@ -12,15 +12,16 @@
 #include "wiring_private.h"
 #include "pins_arduino.h"
 #include "peltierControl.h"
+#include "PWM.h"
 
  
-PC::PC(int pwm, int heating, int cooling)
+PC::PC(int pwm, int heating, int cooling, long frequency)
 {
 
-	
  	_pwmPin = pwm;
  	_heatingPin = heating;
  	_coolingPin = cooling;
+	SetPinFrequencySafe(pwm, frequency);
 
 }
 
@@ -30,28 +31,26 @@ void PC::begin()
  	pinMode(_heatingPin, OUTPUT);
  	pinMode(_coolingPin, OUTPUT);
  
- 	digitalWrite(_coolingPin, LOW);
-	digitalWrite(_heatingPin, LOW);
-	analogWrite(_pwmPin, 0);
+	stop();
 }
 
 void PC::stop() 
 {
  	digitalWrite(_coolingPin, LOW);
 	digitalWrite(_heatingPin, LOW);
-	analogWrite(_pwmPin, 0);
+	pwmWrite(_pwmPin, 0);
 }
 
 void PC::heat(int intensity) 
 {
 	digitalWrite(_coolingPin, LOW);
 	digitalWrite(_heatingPin, HIGH);
-	analogWrite(_pwmPin, intensity);
+	pwmWrite(_pwmPin, intensity);
 }
 
 void PC::cool(int intensity) 
 {
    	digitalWrite(_heatingPin, LOW);
 	digitalWrite(_coolingPin, HIGH);
-	analogWrite(_pwmPin, intensity);
+	pwmWrite(_pwmPin, intensity);
 }

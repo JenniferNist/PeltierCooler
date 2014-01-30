@@ -7,7 +7,7 @@ typedef struct inputDataType {
   float tempBlue = 0;
   float tempBrown = 0;
   float tempWater = 0;
-  float tempTarget = 24;
+  float tempTarget = 0;
   int fanSpeed = 0;           // fan speed in percentage
 };
 

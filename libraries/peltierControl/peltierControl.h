@@ -21,7 +21,7 @@
 class PC 
 {
 public:
-  PC(int pwm, int heating, int cooling);
+  PC(int pwm, int heating, int cooling, long frequency);
   void begin(); 	
   void stop();
   void heat(int intensity);

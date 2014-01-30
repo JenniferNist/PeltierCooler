@@ -142,16 +142,9 @@ void tftPrintTemp() {
   }
 
   // target temperature
-  // overwrite only if the value has changed
-  if (inputData.tempTarget != oldInputData.tempTarget) {
-    // TODO: check for position! is 45 correct??
-    tft.setCursor(45,24);
-    tft.setTextColor(ST7735_BLACK);
-    tft.print(oldInputData.tempTarget);
-    tft.setCursor(45,24);
-    tft.setTextColor(ST7735_WHITE);
-    tft.println(inputData.tempTarget);
-  }
+  tft.setCursor(45,24);
+  tft.fillRect(45, 24, 30, 8, ST7735_BLACK);
+  tft.println(inputData.tempTarget);
 }
 
 /**

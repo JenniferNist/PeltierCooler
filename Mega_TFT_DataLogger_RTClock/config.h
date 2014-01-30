@@ -4,31 +4,37 @@
 /**
  *  pins connected to Arduino MEGA 2560 as follows:
  *
- * rst - pin -1          // display reset (Adafruit TS7735)
- * poti - pin A0         // potentiometer analog pin
+ * rst - pin -1            // display reset (Adafruit TS7735)
  * 
- * pwmPeltierPin - pin 5 // peltier element - PWM - timer 3
- * pwmFanPin - pin 6     // fan - PWM - timer 4
+ * encoderA - pin 2        // encoder channel a - INTERRUPT
+ * encoderB - pin 3        // encoder channel b - INTERRUPT
  *
- * I2C SDA - pin 20      // RTClock
- * I2C SCL - pin 21      // RTClock
+ * pwmPeltierPin - pin 5   // peltier element - PWM - timer 3
+ * pwmFanPin - pin 6       // fan - PWM - timer 4
  *
- * oneWire - pin 40      // temperature sensors (ds18b20)
- * heatingPin - pin 42   // peltier element
- * coolingPin - pin 43   // peltier element
+ * encoderTamper - pin 18  // encoder tamper - INTERRUPT
  *
- * dc - pin 48           // display (Adafruit TS7735)
- * sd_cs - pin 49        // display (Adafruit TS7735)
- * MISO - pin 50         // display (Adafruit TS7735) - SPI
- * MOSI - pin 51         // display (Adafruit TS7735) - SPI
- * CLK - pin 52          // display (Adafruit TS7735) - SPI
- * tft_cs - pin 53       // display (Adafruit TS7735) - SPI
+ * I2C SDA - pin 20        // RTClock
+ * I2C SCL - pin 21        // RTClock
+ *
+ * oneWire - pin 40        // temperature sensors (ds18b20)
+ * heatingPin - pin 42     // peltier element
+ * coolingPin - pin 43     // peltier element
+ *
+ * dc - pin 48             // display (Adafruit TS7735)
+ * sd_cs - pin 49          // display (Adafruit TS7735)
+ * MISO - pin 50           // display (Adafruit TS7735) - SPI
+ * MOSI - pin 51           // display (Adafruit TS7735) - SPI
+ * CLK - pin 52            // display (Adafruit TS7735) - SPI
+ * tft_cs - pin 53         // display (Adafruit TS7735) - SPI
  */
 
-#define poti A0
 #define rst  -1
+#define encoderA 2
+#define encoderB 3
 #define pwmPeltierPin 7 
 #define pwmFanPin 6
+#define encoderTamper 18
 #define heatingPin 42
 #define coolingPin 43
 #define dc   48
@@ -41,7 +47,7 @@
 // set precision of the temperature sensors to 12 bit
 #define TEMPERATURE_PRECISION 12
 
-#define DS18B20DELAY 1000
+#define DS18B20DELAY 1200
 
 
 // arrays to hold Temperature Sensor device addresses

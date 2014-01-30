@@ -1,5 +1,3 @@
-#include "config.h"
-
 unsigned long lastTempRequest = 0;
 
 
@@ -14,8 +12,8 @@ void initTempSensors() {
   sensors.setResolution(waterTermometer, TEMPERATURE_PRECISION);
 
   sensors.setWaitForConversion(false);
+  
   sensors.requestTemperatures();
-
   lastTempRequest = millis(); 
 }
 

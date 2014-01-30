@@ -1,3 +1,8 @@
+#include "config.h"
+
+unsigned long lastTempRequest = 0;
+
+
 /**
  * initialize temperature sensors
  */
@@ -7,6 +12,11 @@ void initTempSensors() {
   sensors.setResolution(blueTermometer, TEMPERATURE_PRECISION);
   sensors.setResolution(brownTermometer, TEMPERATURE_PRECISION);
   sensors.setResolution(waterTermometer, TEMPERATURE_PRECISION);
+
+  sensors.setWaitForConversion(false);
+  sensors.requestTemperatures();
+
+  lastTempRequest = millis(); 
 }
 
 /**
@@ -18,13 +28,13 @@ void locateTempSensors() {
   tftFoundDevices();
 
   // debug output if no sensors could be found
-  if (!sensors.getAddress(blueTermometer, 0)) {
+  if (!sensors.isConnected(blueTermometer)) {
     errorFlag.errorBlue = true;
   }
-  if (!sensors.getAddress(brownTermometer, 2)) {
+  if (!sensors.isConnected(brownTermometer)) {
     errorFlag.errorBrown = true;
   } 
-  if (!sensors.getAddress(waterTermometer, 1)) {
+  if (!sensors.isConnected(waterTermometer)) {
     errorFlag.errorWater = true; 
   }   
 }
@@ -49,18 +59,25 @@ void setTempTarget(){
  */
 void getTempData() {
 
-  // TODO: hier fehlerbehandlung einbauen wenn Werte nicht korrekt gelesen werden.
-  // falsche werte garnicht ans system weiterreichen!
+  if ((millis() - lastTempRequest) >= DS18B20DELAY) // waited long enough??
+  {
 
-  oldInputData = inputData;
+    // TODO: hier fehlerbehandlung einbauen wenn Werte nicht korrekt gelesen werden.
+    // falsche werte garnicht ans system weiterreichen!
 
-  // call sensors.requestTemperatures() to issue a global temperature 
-  // request to all devices on the bus
-  sensors.requestTemperatures();
-  inputData.tempBlue = sensors.getTempC(blueTermometer);
-  inputData.tempBrown = sensors.getTempC(brownTermometer);
-  inputData.tempWater = sensors.getTempC(waterTermometer);
+    oldInputData = inputData;
 
+    // call sensors.requestTemperatures() to issue a global temperature 
+    // request to all devices on the bus
+    inputData.tempBlue = sensors.getTempC(blueTermometer);
+    inputData.tempBrown = sensors.getTempC(brownTermometer);
+    inputData.tempWater = sensors.getTempC(waterTermometer);
+
+
+    sensors.requestTemperatures(); 
+    lastTempRequest = millis();
+  }
 }
+
 
 

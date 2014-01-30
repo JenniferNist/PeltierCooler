@@ -41,6 +41,15 @@
 // set precision of the temperature sensors to 12 bit
 #define TEMPERATURE_PRECISION 12
 
+#define DS18B20DELAY 1000
+
+
+// arrays to hold Temperature Sensor device addresses
+uint8_t blueTermometer[] = { 0x28, 0xB4, 0x9D, 0xC5, 0x02, 0x00, 0x00, 0x69 };
+uint8_t waterTermometer[]   = { 0x28, 0xEC, 0xA9, 0xC5, 0x02, 0x00, 0x00, 0x7D };
+uint8_t brownTermometer[] = { 0x28, 0x41, 0xA7, 0xC5, 0x02, 0x00, 0x00, 0xC9 };
+
+
 // set frequency of fan and peltier element
 #define fanPwmFrequency 22000  // frequency of the pwn-signal (in Hz)
 #define peltierPwmFrequency 22000  // frequency of the pwn-signal (in Hz)

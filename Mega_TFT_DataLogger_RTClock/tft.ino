@@ -76,6 +76,9 @@ void writeStaticText() {
   tft.println(" off");
   // resetcolor
   tft.setTextColor(ST7735_WHITE);
+  
+  tft.setCursor(0, 88);
+  tft.println("Value: ");
 
 }
 
@@ -205,7 +208,8 @@ void tftPrintPeltierInfo() {
     tft.setTextColor(ST7735_WHITE);
   }
 
-  tft.fillRect(0, 88, 30, 8, ST7735_BLACK);
+  tft.fillRect(60, 88, 30, 8, ST7735_BLACK);
+  tft.setCursor(60, 88);
   tft.println(peltierPwmValue);
 }
 

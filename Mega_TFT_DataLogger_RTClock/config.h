@@ -9,8 +9,11 @@
  * encoderA - pin 2        // encoder channel a - INTERRUPT
  * encoderB - pin 3        // encoder channel b - INTERRUPT
  *
+ * pwmPumpPin -pin 5       // pump - PWM -timer 3
  * pwmFanPin - pin 6       // fan - PWM - timer 4
  * pwmPeltierPin - pin 7   // peltier element - PWM - timer 4
+ * heatingPin - pin 8     // peltier element
+ * coolingPin - pin 9     // peltier element
  *
  * encoderTamper - pin 18  // encoder tamper - INTERRUPT
  *
@@ -18,8 +21,6 @@
  * I2C SCL - pin 21        // RTClock
  *
  * oneWire - pin 40        // temperature sensors (ds18b20)
- * heatingPin - pin 42     // peltier element
- * coolingPin - pin 43     // peltier element
  *
  * dc - pin 48             // display (Adafruit TS7735)
  * sd_cs - pin 49          // display (Adafruit TS7735)
@@ -32,11 +33,13 @@
 #define rst  -1
 #define encoderA 2
 #define encoderB 3
-#define pwmPeltierPin 7 
+#define pwmPumpPin 5
 #define pwmFanPin 6
+#define pwmPeltierPin 7 
+#define heatingPin 8
+#define coolingPin 9
 #define encoderTamper 18
-#define heatingPin 42
-#define coolingPin 43
+
 #define dc   48
 #define sd_cs 49
 #define tft_cs   53

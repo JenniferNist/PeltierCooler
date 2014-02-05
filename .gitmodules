@@ -1,3 +1,0 @@
-[submodule "libraries/DS3232RTC"]
-	path = libraries/DS3232RTC
-	url = https://github.com/JChristensen/DS3232RTC.git

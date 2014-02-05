@@ -67,6 +67,7 @@ void setup()
 void loop()
 {
 
+  pwmWrite(pwmPumpPin, 50);
   updateTimeFromSerial();
 
   getTime();

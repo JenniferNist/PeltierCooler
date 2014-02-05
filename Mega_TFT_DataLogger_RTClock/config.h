@@ -9,8 +9,8 @@
  * encoderA - pin 2        // encoder channel a - INTERRUPT
  * encoderB - pin 3        // encoder channel b - INTERRUPT
  *
- * pwmPeltierPin - pin 5   // peltier element - PWM - timer 3
  * pwmFanPin - pin 6       // fan - PWM - timer 4
+ * pwmPeltierPin - pin 7   // peltier element - PWM - timer 4
  *
  * encoderTamper - pin 18  // encoder tamper - INTERRUPT
  *
@@ -47,7 +47,7 @@
 // set precision of the temperature sensors to 12 bit
 #define TEMPERATURE_PRECISION 12
 
-#define DS18B20DELAY 1200
+#define DS18B20DELAY 1000
 
 
 // arrays to hold Temperature Sensor device addresses

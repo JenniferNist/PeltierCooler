@@ -59,6 +59,7 @@ void setup()
   checkForInitErrors();
   delay(2000); 
 
+  getTime();
   writeStaticText();
 
 
@@ -66,8 +67,6 @@ void setup()
 
 void loop()
 {
-
-  pwmWrite(pwmPumpPin, 50);
   updateTimeFromSerial();
 
   getTime();

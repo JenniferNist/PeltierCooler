@@ -3,21 +3,37 @@
  * create string with format "dd.mm.yyyy - hh:mm:ss""
  * for tft
  */
-String dateStringGenerator() {
+String dateStringGenerator(time_t time) {
 
-  dateString = String(day(currentTime));
+  dateString = String("");
+  dateString += fillZeros(day(time), 2);
   dateString += ".";
-  dateString += month(currentTime); 
+  dateString += fillZeros(month(time), 2);
   dateString += ".";
-  dateString += year(currentTime);
+  dateString += year(time);
   dateString += " - ";
-  dateString += hour(currentTime);
+  dateString += fillZeros(hour(time), 2);
   dateString += ":";
-  dateString += minute(currentTime);
+  dateString += fillZeros(minute(time), 2);
   dateString += ":";
-  dateString += second(currentTime);
-
+  dateString += fillZeros(second(time), 2);
+  
   return dateString;
+}
+
+/**
+*  fill heading zeros in strings
+*/
+String fillZeros(int number, int digits){
+  
+  char buffer[10];
+  char *intStr = itoa(number, buffer, 10);  
+  String temp = String(intStr);
+  while(temp.length() < digits)
+  {
+    temp = "0" + temp;
+  }
+  return temp;
 }
 
 /**
@@ -108,6 +124,7 @@ char * floatToString(char * outstr, double val, byte precision, byte widthp){
 
   return outstr;
 }
+
 
 
 

@@ -9,11 +9,10 @@
  * encoderA - pin 2        // encoder channel a - INTERRUPT
  * encoderB - pin 3        // encoder channel b - INTERRUPT
  *
- * pwmPumpPin -pin 5       // pump - PWM -timer 3
  * pwmFanPin - pin 6       // fan - PWM - timer 4
- * pwmPeltierPin - pin 7   // peltier element - PWM - timer 4
- * heatingPin - pin 8     // peltier element
- * coolingPin - pin 9     // peltier element
+ * heatingPin - pin 7      // peltier element
+ * pwmPeltierPin - pin 8   // peltier element - PWM - timer 4
+ * coolingPin - pin 9      // peltier element
  *
  * encoderTamper - pin 18  // encoder tamper - INTERRUPT
  *
@@ -33,10 +32,9 @@
 #define rst  -1
 #define encoderA 2
 #define encoderB 3
-#define pwmPumpPin 5
 #define pwmFanPin 6
-#define pwmPeltierPin 7 
-#define heatingPin 8
+#define pwmPeltierPin 8
+#define heatingPin 7
 #define coolingPin 9
 #define encoderTamper 18
 

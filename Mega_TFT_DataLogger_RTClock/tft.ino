@@ -1,4 +1,3 @@
-
 /**
  * count and print the number of found devices on tft 
  */
@@ -67,6 +66,11 @@ void writeStaticText() {
   tft.setCursor(90, 40);
   tft.println("%");
 
+  // date
+  dateStringGenerator(currentTime);
+  tft.setCursor(0,56);
+  tft.println(dateString);
+
   // peltier element
   tft.setCursor(0, 80);
   tft.print("Peltier is ");
@@ -79,7 +83,39 @@ void writeStaticText() {
   
   tft.setCursor(0, 88);
   tft.println("Value: ");
+  
+}
 
+/**
+* Print only the changed charaters on tft.
+*/
+void printChangedChar(String oldString, String currentString, int posX, int posY) {
+
+  int length;
+  int length1 = oldString.length();
+  int length2 = currentString.length();
+  
+  if (length1 > length2) {
+    length = length1;
+  }
+  else {
+    length = length2;
+  } 
+  
+  for(int i = 0; i < (length + 1); i++) {
+      
+    char old = oldString[i];
+    char current = currentString[i];
+      
+    // draw only the different chars on tft
+    if(old != current) {
+        
+      int charPosX = posX + (i * 6); // 5 pixels per char plus one empty line
+      tft.fillRect(charPosX, posY, 6, 8, ST7735_BLACK);
+      tft.setCursor(charPosX, posY);
+      tft.print(current);    
+    }
+  } 
 }
 
 /**
@@ -88,16 +124,17 @@ void writeStaticText() {
 void tftPrintTime() {
 
   static time_t tLast;
+  String oldTimeString = "";
+  String currentTimeString = "";
 
   if (currentTime != tLast) {
+    
+    oldTimeString = dateStringGenerator(tLast);
+    currentTimeString = dateStringGenerator(currentTime);
+    
+    printChangedChar(oldTimeString, currentTimeString, 0, 56);
+     
     tLast = currentTime;
-
-    dateStringGenerator();
-
-    tft.fillRect(0, 56, 126, 8, ST7735_BLACK);
-    tft.setCursor(0,56);
-    tft.println(dateString);
-
   }
 } 
 
@@ -111,40 +148,42 @@ void tftPrintTemp() {
   // sensor blue 
   // overwrite only if the value has changed
   if (inputData.tempBlue != oldInputData.tempBlue) {
-    tft.setCursor(45,0);
-    tft.setTextColor(ST7735_BLACK);
-    tft.print(oldInputData.tempBlue);
-    tft.setCursor(45,0);
-    tft.setTextColor(ST7735_WHITE);
-    tft.print(inputData.tempBlue);
+    
+    String tempBlueOld = floatToString(buffer, oldInputData.tempBlue, 2, 4);
+    String tempBlueCurrent = floatToString(buffer, inputData.tempBlue, 2, 4);
+    
+    printChangedChar(tempBlueOld, tempBlueCurrent, 45, 0);  
   }
 
   // sensor brown
   // overwrite only if the value has changed
   if  (inputData.tempBrown != oldInputData.tempBrown) {
-    tft.setCursor(45,8);
-    tft.setTextColor(ST7735_BLACK);
-    tft.print(oldInputData.tempBrown);
-    tft.setCursor(45,8);
-    tft.setTextColor(ST7735_WHITE);
-    tft.print(inputData.tempBrown);
+    
+    String tempBrownOld = floatToString(buffer, oldInputData.tempBrown, 2, 4);
+    String tempBrownCurrent = floatToString(buffer, inputData.tempBrown, 2, 4);
+    
+    printChangedChar(tempBrownOld, tempBrownCurrent, 45, 8);   
   }
 
   // sensor water
   // overwrite only if the value has changed
   if  (inputData.tempWater != oldInputData.tempWater) {
-    tft.setCursor(45,16);
-    tft.setTextColor(ST7735_BLACK);
-    tft.print(oldInputData.tempWater);
-    tft.setCursor(45,16);
-    tft.setTextColor(ST7735_WHITE);
-    tft.println(inputData.tempWater);
+    
+    String tempWaterOld = floatToString(buffer, oldInputData.tempWater, 2, 4);
+    String tempWaterCurrent = floatToString(buffer, inputData.tempWater, 2, 4);
+    
+    printChangedChar(tempWaterOld, tempWaterCurrent, 45, 16);  
   }
 
   // target temperature
-  tft.setCursor(45,24);
-  tft.fillRect(45, 24, 30, 8, ST7735_BLACK);
-  tft.println(inputData.tempTarget);
+  // overwrite only if the value has changed
+  if  (inputData.tempTarget != oldInputData.tempTarget) {
+    
+    String tempTargetOld = floatToString(buffer, oldInputData.tempTarget, 2, 4);
+    String tempTargetCurrent = floatToString(buffer, inputData.tempTarget, 2, 4);
+    
+    printChangedChar(tempTargetOld, tempTargetCurrent, 45, 24);  
+  }
 }
 
 /**

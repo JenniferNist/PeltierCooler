@@ -22,7 +22,11 @@ void peltierControl() {
     // set intensity of peltier depending on the temperature difference
     // positive for heating the water.
     peltierPwmValue = map(abs(tempDifference), 2, 25, 0, 255);
-    if (peltierPwmValue > 255) peltierPwmValue = 255;
+    
+    if (peltierPwmValue > 255) {
+      peltierPwmValue = 255;
+    }
+    
     PC.heat(peltierPwmValue);
   }
 
@@ -31,15 +35,19 @@ void peltierControl() {
     // set intensity of peltier depending on the temperature difference
     // negative for cooling the water.
     peltierPwmValue = (map(tempDifference, 2, 25, 0, 255)* (-1));
-    if (peltierPwmValue < -255) peltierPwmValue = -255;
+    
+    if (peltierPwmValue < -255) {
+      peltierPwmValue = -255;
+    }
+    
     PC.cool(abs(peltierPwmValue));
   }
 
   else if ((tempDifference <= 2) && (tempDifference >= -2)) {
     // Set the Peltier to idle mode.
     peltierPwmValue = 0;
-    PC.stop();
+    
+    PC.stop();    
   }
-
 }
 

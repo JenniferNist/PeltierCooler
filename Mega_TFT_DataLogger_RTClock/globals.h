@@ -27,16 +27,8 @@ typedef struct errorFlagType {
 
 errorFlagType errorFlag;
 
-// define struct for peltier information
-//typedef struct peltierInfoType {
-//  boolean peltierHeating = false;
-//  boolean peltierCooling = false;
+// variable for peltier element
 int peltierPwmValue = 0; // [-255;255]
-//};
-
-//peltierInfoType peltierInfo;
-//peltierInfoType oldPeltierInfo;
-
 
 // varialbes for RTClock
 time_t currentTime;

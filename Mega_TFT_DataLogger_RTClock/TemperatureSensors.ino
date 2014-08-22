@@ -45,7 +45,7 @@ void getTempData() {
 
   if ((millis() - lastTempRequest) >= DS18B20DELAY) // waited long enough??
   {
-
+    
     // TODO: hier fehlerbehandlung einbauen wenn Werte nicht korrekt gelesen werden.
     // falsche werte garnicht ans system weiterreichen!
 

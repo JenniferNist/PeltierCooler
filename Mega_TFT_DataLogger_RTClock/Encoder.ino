@@ -7,6 +7,8 @@ void initEncoder() {
   myEnc.write((long)(eeprom_read_float(0)*40));
   pinMode(encoderTamper, INPUT_PULLUP);
   
+  // set initial temperature to an invalid value to make sure its reprinted in the first reading
+  inputData.tempTarget = 999.99;
 }
 
 float oldPosition  = -999;
@@ -17,12 +19,8 @@ float rawTarget = 0;
  */
 void setTempTarget() {
   
-  
-  
   long newPosition = myEnc.read() / 4;
-  if (newPosition != oldPosition) {
-    
-
+  if (newPosition != oldPosition) {   
     
     oldPosition = newPosition;
     rawTarget =  (newPosition/10.0);

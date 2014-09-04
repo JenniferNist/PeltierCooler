@@ -21,6 +21,9 @@ typedef struct errorFlagType {
   boolean errorBlue = false;
   boolean errorBrown = false;
   boolean errorWater = false;
+  boolean errorTempSensor = false;
+  boolean errorPeltierMaxTemp = false;
+  boolean errorPeltierTempDiff = false;
   // boolean errorFan = false;  --> not jet implemented --> how?
   // boolean errorPeltier = false --> not jet implemented --> how?
 };
@@ -45,6 +48,11 @@ float maxTemperature = 30;
 // read three sensors and append to the string:
 char buffer[40];
 
+// boolean value for reprint
+boolean reprintTemp = false;
+boolean reprintFanSpeed = false;
+boolean reprintValue = false;
+boolean reprintPeltierInfo = false;
 
 #endif // _GLOBALS_H
 

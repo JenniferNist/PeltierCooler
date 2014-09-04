@@ -46,16 +46,15 @@ void setup()
   // initialize all timers except for 0, to save time keeping functions
   // needed to set pwm frequencies for peltier and fan on timer 3 and 4.
   InitTimersSafe(); 
-
-  
+ 
   initFan();
   initPeltier();
   initTft();
   initSD();
-
+  initEncoder();
+  
   locateTempSensors();
   
-  initEncoder();
   checkForInitErrors();
   delay(2000); 
 
@@ -71,6 +70,8 @@ void loop()
 
   getTime();
   getTempData();
+  
+  checkForErrors();
 
   setTempTarget();
   setFanSpeed();

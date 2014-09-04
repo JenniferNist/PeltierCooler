@@ -3,9 +3,8 @@
  * Set initial intensity and direction to 0
  */
 void initPeltier() {
-
+  
   PC.begin();
-
 }
 
 /**
@@ -46,8 +45,10 @@ void peltierControl() {
   else if ((tempDifference <= 2) && (tempDifference >= -2)) {
     // Set the Peltier to idle mode.
     peltierPwmValue = 0;
-    
-    PC.stop();    
+    PC.stop();
+
+    // ---> if the temperature is correct the peltier should hold
+    // its value! Or the temperature will rise/drop again!    
   }
 }
 

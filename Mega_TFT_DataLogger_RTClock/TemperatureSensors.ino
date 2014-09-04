@@ -24,7 +24,7 @@ void initTempSensors() {
 void locateTempSensors() {
 
   tftFoundDevices();
-
+  
   // debug output if no sensors could be found
   if (!sensors.isConnected(blueTermometer)) {
     errorFlag.errorBlue = true;

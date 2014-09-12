@@ -63,14 +63,14 @@ void writeStaticText() {
   // sensor water
   tft.setCursor(10, 10);
   tft.print("Water temp:");
-  tft.setCursor(126,10);
-  tft.println("C");
+  tft.setCursor(90,10);
+  tft.println("00.00 C");
 
   // target temperature
   tft.setCursor(10, 20);
   tft.print("Target temp:");
-  tft.setCursor(126,20);
-  tft.println("C");
+  tft.setCursor(90,20);
+  tft.println("00.00 C");
 
   // system info
   tft.setCursor(0, 40);
@@ -78,14 +78,14 @@ void writeStaticText() {
 
   tft.setCursor(10, 50);
   tft.print("Peltier down:");
-  tft.setCursor(126,50);
-  tft.println("C");
+  tft.setCursor(90,50);
+  tft.println("00.00 C");
 
   // sensor brown
   tft.setCursor(10,60);
   tft.print("Peltier up:");
-  tft.setCursor(126,60);
-  tft.println("C");
+  tft.setCursor(90,60);
+  tft.println("00.00 C");
 
   // peltier element
   tft.setCursor(10, 70);

@@ -39,8 +39,8 @@ void printErrorTempWater() {
 }
 
 /**
-* User should check the missing sensor and restart.
-*/
+ * User should check the missing sensor and restart.
+ */
 void printCheckAndRestart() {
   tft.println("");
   tft.setTextColor(ST7735_RED);
@@ -62,9 +62,8 @@ void printRuntimeErrors() {
     tft.println("Error with an Sensor.");
     tft.println("Please check them.");
     tft.setTextColor(ST7735_WHITE);
-  }
-  return;
-  
+    return;
+  }  
   if (errorFlag.errorPeltierMaxTemp) {
     tft.setTextColor(ST7735_RED);
     tft. println("Peltier has reached his");
@@ -78,3 +77,4 @@ void printRuntimeErrors() {
     tft.setTextColor(ST7735_WHITE);
   }
 }
+

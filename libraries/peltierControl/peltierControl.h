@@ -36,6 +36,7 @@ public:
   void stop();
   void heat(int intensity);
   void cool(int intensity);
+  
   static PeltierState peltierState;
 
  private:

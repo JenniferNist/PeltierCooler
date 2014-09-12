@@ -32,7 +32,6 @@ void PC::begin()
  	pinMode(_heatingPin, OUTPUT);
  	pinMode(_coolingPin, OUTPUT);
 	peltierState = PeltierStopped; 
-
 	stop();
 }
 

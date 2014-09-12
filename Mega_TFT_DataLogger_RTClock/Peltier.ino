@@ -17,7 +17,7 @@ void peltierControl() {
   int tempDifference = (inputData.tempWater - inputData.tempTarget) * 10;
 
   // tempDifference < 0: water is to cold (20C (tempWater) - 24C (tempTarget) = -4 (tempDifference))
-  if (tempDifference < -2) {
+  if ((PeltierCooling && tempDifference < -2) || (PeltierStopped && tempDifference < -4)) {
     // set intensity of peltier depending on the temperature difference
     // positive for heating the water.
     peltierPwmValue = map(abs(tempDifference), 2, 25, 0, 255);
@@ -29,8 +29,8 @@ void peltierControl() {
     PC.heat(peltierPwmValue);
   }
 
-  // tempDifference > 0: water is to warm (27C (tempWater) - 24C (tempTarget) = 3 (tempDifference))
-  else if (tempDifference > 2) {
+  // tempDifference > 0: water is to warm (27C (tempWater) - 24C (tempTarget) = 3 (tempDifference
+  else if ((PeltierHeating && tempDifference > 2) || (PeltierStopped && tempDifference > 4)) {
     // set intensity of peltier depending on the temperature difference
     // negative for cooling the water.
     peltierPwmValue = (map(tempDifference, 2, 25, 0, 255)* (-1));

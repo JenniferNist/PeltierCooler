@@ -55,57 +55,66 @@ void writeStaticText() {
   tft.fillScreen(ST7735_BLACK);
   tft.setCursor(0,0);
 
-  tft.print("Blue  :");
-  tft.setCursor(90,0);
-  tft.println("C");
-
-  // sensor brown
-  tft.print("Brown :");
-  tft.setCursor(90,8);
-  tft.println("C");
+  // date
+  dateStringGenerator(currentTime);
+  tft.println(dateString);
+  tft.println("");
 
   // sensor water
-  tft.print("Water :");
-  tft.setCursor(90,16);
+  tft.setCursor(10, 8);
+  tft.print("Water temp:");
+  tft.setCursor(126,8);
   tft.println("C");
 
   // target temperature
-  tft.setCursor(0, 24);
-  tft.print("Target:");
-  tft.setCursor(90,24);
+  tft.setCursor(10, 16);
+  tft.print("Target temp:");
+  tft.setCursor(126,16);
   tft.println("C");
 
-  // fan speed
-  tft.setCursor(0, 40);
-  tft.print("Fan speed: ");
-  tft.setCursor(90, 40);
-  tft.println("%");
+  // system info
+  tft.setCursor(0, 32);
+  tft.println("System information:");
 
-  // date
-  dateStringGenerator(currentTime);
-  tft.setCursor(0,56);
-  tft.println(dateString);
+  tft.setCursor(10, 40);
+  tft.print("Peltier down:");
+  tft.setCursor(126,40);
+  tft.println("C");
+
+  // sensor brown
+  tft.setCursor(10,48);
+  tft.print("Peltier up:");
+  tft.setCursor(126,48);
+  tft.println("C");
 
   // peltier element
-  tft.setCursor(0, 80);
+  tft.setCursor(10, 56);
   tft.print("Peltier is ");
-
   // print next word in an different color
   tft.setTextColor(ST7735_GREEN);
-  tft.println(" off");
+  tft.setCursor(90, 56);
+  tft.println("off");
   // resetcolor
   tft.setTextColor(ST7735_WHITE);
-
   // Print Value of peltier
-  tft.setCursor(0, 88);
-  tft.println("Value: ");
-
-  // Diagram
-  //for (int i = 96; i <= 128; i+8) {
-    //tft.setCursor(0, i);
-    //tft.print("|");
-  //}
-
+  tft.setCursor(10, 64);
+  tft.println("Peltier intensity: ");
+  
+  // fan speed
+  tft.setCursor(10, 72);
+  tft.print("Fan speed: ");
+  tft.setCursor(110, 72);
+  tft.println("%");
+  
+  // Errors
+  tft.setCursor(0,88);
+  tft.println("Errors:");
+  
+  // Current errors
+  tft.setCursor(10, 96);
+  tft.println("None");
+  
+  
 }
 
 ////////////////////////////// Print changing values ////////////////////////////////////
@@ -129,7 +138,7 @@ void tftPrintTime() {
     oldTimeString = dateStringGenerator(tLast);
     currentTimeString = dateStringGenerator(currentTime);
 
-    printChangedChar(oldTimeString, currentTimeString, 0, 56);
+    printChangedChar(oldTimeString, currentTimeString, 0, 0);
 
     tLast = currentTime;
   }
@@ -151,7 +160,7 @@ void tftPrintTemp() {
       String tempBlueOld = floatToString(buffer, oldInputData.tempBlue, 2, 4);
       String tempBlueCurrent = floatToString(buffer, inputData.tempBlue, 2, 4);
 
-      printChangedChar(tempBlueOld, tempBlueCurrent, 45, 0);  
+      printChangedChar(tempBlueOld, tempBlueCurrent, 90, 48);  
     }
 
     // sensor brown
@@ -161,7 +170,7 @@ void tftPrintTemp() {
       String tempBrownOld = floatToString(buffer, oldInputData.tempBrown, 2, 4);
       String tempBrownCurrent = floatToString(buffer, inputData.tempBrown, 2, 4);
 
-      printChangedChar(tempBrownOld, tempBrownCurrent, 45, 8);   
+      printChangedChar(tempBrownOld, tempBrownCurrent, 90, 40);   
 
     }
 
@@ -172,7 +181,7 @@ void tftPrintTemp() {
       String tempWaterOld = floatToString(buffer, oldInputData.tempWater, 2, 4);
       String tempWaterCurrent = floatToString(buffer, inputData.tempWater, 2, 4);
 
-      printChangedChar(tempWaterOld, tempWaterCurrent, 45, 16);  
+      printChangedChar(tempWaterOld, tempWaterCurrent, 90, 8);  
 
     }
 
@@ -183,7 +192,7 @@ void tftPrintTemp() {
       String tempTargetOld = floatToString(buffer, oldInputData.tempTarget, 2, 4);
       String tempTargetCurrent = floatToString(buffer, inputData.tempTarget, 2, 4);
 
-      printChangedChar(tempTargetOld, tempTargetCurrent, 45, 24);  
+      printChangedChar(tempTargetOld, tempTargetCurrent, 90, 16);  
     }
   }
   else {
@@ -219,13 +228,13 @@ void tftPrintFanSpeed() {
 
     if (inputData.fanSpeed != oldInputData.fanSpeed) {
       int printFanSpeed = map(inputData.fanSpeed, 0, 255, 0, 100);
-      tft.fillRect(65, 40, 20, 8, ST7735_BLACK);
-      tft.setCursor(65, 40);
+      tft.fillRect(90, 72, 20, 8, ST7735_BLACK);
+      tft.setCursor(90, 72);
       tft.print(printFanSpeed);
     }
   }
   else {
-    tft.setCursor(65, 40);
+    tft.setCursor(90, 72);
     int printFanSpeed = map(inputData.fanSpeed, 0, 255, 0, 100);
     tft.print(printFanSpeed);
     reprintFanSpeed = false;
@@ -245,8 +254,8 @@ void tftPrintPeltierInfo() {
     switch(PC.peltierState) {
 
     case PeltierHeating:
-      tft.setCursor(68, 80);
-      tft.fillRect(68, 80, 42, 8, ST7735_BLACK);
+      tft.setCursor(90, 56);
+      tft.fillRect(90, 56, 42, 8, ST7735_BLACK);
       // print next word in an different color and size
       tft.setTextColor(ST7735_RED);
       tft.println("heating");
@@ -255,8 +264,8 @@ void tftPrintPeltierInfo() {
       break;
 
     case PeltierCooling:
-      tft.setCursor(68, 80);
-      tft.fillRect(68, 80, 42, 8, ST7735_BLACK);
+      tft.setCursor(90, 56);
+      tft.fillRect(90, 56, 42, 8, ST7735_BLACK);
       // print next word in an different color and size
       tft.setTextColor(ST7735_CYAN);
       tft.println("cooling");
@@ -265,8 +274,8 @@ void tftPrintPeltierInfo() {
       break;
 
     case PeltierStopped:
-      tft.setCursor(68, 80);
-      tft.fillRect(68, 80, 42, 8, ST7735_BLACK);
+      tft.setCursor(90, 56);
+      tft.fillRect(90, 56, 42, 8, ST7735_BLACK);
       // print next word in an different color and size
       tft.setTextColor(ST7735_GREEN);
       tft.println("off");
@@ -288,12 +297,12 @@ void tftPrintPeltierInfo() {
     String peltierPwmValueOld = itoa(oldPeltierPwmValue, buffer, 10);
     String peltierPwmValueCurrent = itoa(peltierPwmValue, buffer, 10);
 
-    printChangedChar(peltierPwmValueOld, peltierPwmValueCurrent, 60, 88);  
+    printChangedChar(peltierPwmValueOld, peltierPwmValueCurrent, 120, 64);  
     oldPeltierPwmValue = peltierPwmValue;
   }
   }else {
     String peltierPwmValueCurrent = itoa(peltierPwmValue, buffer, 10);
-    tft.setCursor(60, 88);
+    tft.setCursor(120, 64);
     tft.print(peltierPwmValueCurrent);
     reprintFanSpeed = false;
   }

@@ -15,6 +15,7 @@ void checkForInitErrors() {
   }
 
   if (errorFlag.errorBlue || errorFlag.errorBrown || errorFlag.errorWater) {
+    digitalWrite(errorLed, HIGH);
     PC.stop();
     pwmWrite(pwmFanPin, 0);
 
@@ -44,19 +45,24 @@ void checkForErrors() {
 
   setErrorFlags();
 
+  if (errorFlag.errorInitSD) {
+    tftPrintSDError();
+  }
+
   if (errorFlag.errorPeltierMaxTemp || errorFlag.errorTempSensor || errorFlag.errorPeltierTempDiff) {
+    digitalWrite(13, HIGH);
     PC.stop();
     pwmWrite(pwmFanPin, 255);
     ClearTft();
     printRuntimeErrors();
-
-    
+   
     while(errorFlag.errorTempSensor)
     {
       getTempData();
       setErrorFlags();
       PC.stop();
     }
+    digitalWrite(13, LOW);
     ClearTft();
     reprintTemp = true;
     reprintFanSpeed = true;

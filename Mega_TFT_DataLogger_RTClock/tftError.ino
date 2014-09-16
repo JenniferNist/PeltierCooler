@@ -49,6 +49,15 @@ void printCheckAndRestart() {
   tft.setTextColor(ST7735_WHITE);
 }
 
+/**
+ * SD-Card is not working correctly.
+ */
+void tftPrintSDError() {
+  tft.setCursor(0,120);
+  tft.setTextColor(ST7735_RED);
+  tft.println("SD-Card is not working.");
+  tft.setTextColor(ST7735_WHITE);
+}
 
 /**
  * Some of the temperature sensors isn't workind correctly!

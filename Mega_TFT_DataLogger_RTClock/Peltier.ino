@@ -15,38 +15,73 @@ void initPeltier() {
 void peltierControl() {
 
   int tempDifference = (inputData.tempWater - inputData.tempTarget) * 10;
+  // Example: tempDifference < 0: water is to cold (20C (tempWater) - 24C (tempTarget) = -4 (tempDifference))
 
-  // tempDifference < 0: water is to cold (20C (tempWater) - 24C (tempTarget) = -4 (tempDifference))
-  if (((PC.peltierState == PeltierCooling) && tempDifference < -2) || ((PC.peltierState == PeltierStopped) && tempDifference < -5)) {
-    // set intensity of peltier depending on the temperature difference
-    // positive for heating the water.
-    peltierPwmValue = map(abs(tempDifference), 2, 25, 0, 255);
+  switch(PC.peltierState)
+  {
 
-    if (peltierPwmValue > 255) {
-      peltierPwmValue = 255;
+  case PeltierStopped:
+    if(tempDifference <= (-hysteresis - epsilon)) {
+      PC.heat(calculatePwm(tempDifference, PC.peltierState));
+    } 
+    else if (tempDifference >= (hysteresis + epsilon)) {
+      PC.cool(calculatePwm(tempDifference, PC.peltierState));
+    }
+    else {
+      PC.stop();
+    }    
+    break;
+
+  case PeltierHeating:
+    if ((tempDifference > -hysteresis) && (tempDifference <= 0)) {
+      PC.stop();
+    }
+    else {
+      PC.heat(calculatePwm(tempDifference, PC.peltierState));
     }
 
-    PC.heat(peltierPwmValue);
-  }
+    break;
 
-  // tempDifference > 0: water is to warm (27C (tempWater) - 24C (tempTarget) = 3 (tempDifference
-  else if (((PC.peltierState == PeltierHeating) && tempDifference > 2) || ((PC.peltierState == PeltierStopped) && tempDifference > 5)) {
-    // set intensity of peltier depending on the temperature difference
-    // negative for cooling the water.
-    peltierPwmValue = (map(tempDifference, 2, 25, 0, 255)* (-1));
-
-    if (peltierPwmValue < -255) {
-      peltierPwmValue = -255;
+  case PeltierCooling:
+    if ((tempDifference < hysteresis) && (tempDifference > 0)) {
+      PC.stop();
     }
-
-    PC.cool(abs(peltierPwmValue));
-  }
-
-  else if ((tempDifference <= 2) && (tempDifference >= -2)) {
-    // Set the Peltier to idle mode.
-    peltierPwmValue = 0;
-    PC.stop(); 
+    else {
+      PC.cool(calculatePwm(tempDifference, PC.peltierState));
+    }
+    break;
   }
 }
+
+/**
+ * Calculate neded PWM value
+ */
+int calculatePwm(int tempDiff, PeltierState state) {
+  // set intensity of peltier depending on the temperature difference
+  int value = map(abs(tempDiff), hysteresis, 25, 0, 255);
+
+  if (value > 255) {
+    value = 255;
+  }
+
+  switch (state)
+  {
+  case PeltierStopped:
+      peltierPwmValue = 0;
+      value = 0;
+    break;
+
+  case PeltierCooling:
+      peltierPwmValue = -value;
+    break;
+
+  case PeltierHeating:
+      peltierPwmValue = value;
+    break;
+  }
+  return value;
+}
+
+
 
 

@@ -74,16 +74,16 @@ void writeStaticText() {
 
   // system info
   tft.setCursor(0, 40);
-  tft.println("System information:");
+  tft.println("Peltier information:");
 
   tft.setCursor(10, 50);
-  tft.print("Peltier down:");
+  tft.print("Temp bottom:");
   tft.setCursor(90,50);
   tft.println("00.00 C");
 
   // sensor brown
   tft.setCursor(10,60);
-  tft.print("Peltier up:");
+  tft.print("Temp top:");
   tft.setCursor(90,60);
   tft.println("00.00 C");
 
@@ -98,10 +98,12 @@ void writeStaticText() {
   tft.setTextColor(ST7735_WHITE);
   // Print Value of peltier
   tft.setCursor(10, 80);
-  tft.println("Peltier intensity: ");
-  tft.setCursor(120, 80);
+  tft.println("Intensity: ");
+  tft.setCursor(90, 80);
   tft.println("0");
-  
+  tft.setCursor(110, 80);
+  tft.println("%");
+
   // fan speed
   tft.setCursor(10, 90);
   tft.print("Fan speed: ");
@@ -193,18 +195,22 @@ void tftPrintTemp() {
 
     String tempBlue = floatToString(buffer, inputData.tempBlue, 2, 4);
     tft.setCursor(90, 50);
+    tft.fillRect(90, 50, 30, 8, ST7735_BLACK);
     tft.print(tempBlue);  
 
     String tempBrown = floatToString(buffer, inputData.tempBrown, 2, 4);  
     tft.setCursor(90, 60);
+    tft.fillRect(90, 60, 30, 8, ST7735_BLACK);
     tft.print(tempBrown);  
 
     String tempWater = floatToString(buffer, inputData.tempWater, 2, 4);
     tft.setCursor(90, 10);
+    tft.fillRect(90, 10, 30, 8, ST7735_BLACK);
     tft.print(tempWater);  
 
     String tempTarget = floatToString(buffer, inputData.tempTarget, 2, 4);
     tft.setCursor(90, 20);
+    tft.fillRect(90, 20, 30, 8, ST7735_BLACK);
     tft.print(tempTarget);  
 
     reprintTemp = false;
@@ -280,25 +286,25 @@ void tftPrintPeltierInfo() {
     oldPeltierState = PC.peltierState;
     reprintPeltierInfo = false;
   }
-  
 
-  if (!reprintFanSpeed){
-  
-  // peltier value
-  // overwrite only if the value has changed
-  if  (peltierPwmValue != oldPeltierPwmValue) {
+  if (!reprintValue){
 
-    String peltierPwmValueOld = itoa(oldPeltierPwmValue, buffer, 10);
-    String peltierPwmValueCurrent = itoa(peltierPwmValue, buffer, 10);
+    // peltier value
+    // overwrite only if the value has changed
+    if  (peltierPwmValue != oldPeltierPwmValue) {
 
-    printChangedChar(peltierPwmValueOld, peltierPwmValueCurrent, 120, 80);  
-    oldPeltierPwmValue = peltierPwmValue;
+      int printPwmValueMapped = map(abs(peltierPwmValue), 0, 255, 0, 100);
+      tft.fillRect(90, 80, 20, 8, ST7735_BLACK);
+      tft.setCursor(90, 80);
+      tft.print(printPwmValueMapped);
+      oldPeltierPwmValue = peltierPwmValue;
+    } 
   }
-  }else {
-    String peltierPwmValueCurrent = itoa(peltierPwmValue, buffer, 10);
-    tft.setCursor(120, 8);
-    tft.print(peltierPwmValueCurrent);
-    reprintFanSpeed = false;
+   else { 
+      tft.setCursor(90, 80);
+      int printPwmValueMapped = map(abs(peltierPwmValue), 0, 255, 0, 100);
+      tft.print(printPwmValueMapped);
+      reprintValue = false;   
   }
 }
 
@@ -343,6 +349,8 @@ void printChangedChar(String oldString, String currentString, int posX, int posY
     }
   } 
 }
+
+
 
 
 

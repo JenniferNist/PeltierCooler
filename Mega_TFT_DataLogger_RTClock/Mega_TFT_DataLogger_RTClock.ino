@@ -39,6 +39,9 @@ void setup()
   // Open serial communications and wait for port to open:
   Serial.begin(115200);
   sensors.begin();
+  
+  pinMode(errorLed, OUTPUT);
+  digitalWrite(errorLed, LOW);
 
   initRTC();
   initTempSensors();

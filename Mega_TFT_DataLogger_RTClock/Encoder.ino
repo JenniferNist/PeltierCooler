@@ -32,7 +32,6 @@ void setTempTarget() {
       myEnc.write((long)(minTemperature*40));
       rawTarget = minTemperature;
     }
-    Serial.println(rawTarget);
   }
   
   

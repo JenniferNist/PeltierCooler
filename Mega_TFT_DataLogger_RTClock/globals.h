@@ -33,6 +33,13 @@ errorFlagType errorFlag;
 // variable for peltier element
 int peltierPwmValue = 0; // [-255;255]
 
+
+// Inner boundary for the temperature controller in centi-degrees
+int hysteresis = 2;
+// Outer boundary for the temperature controller in centi-degrees
+int epsilon = 3;
+
+
 // varialbes for RTClock
 time_t currentTime;
 

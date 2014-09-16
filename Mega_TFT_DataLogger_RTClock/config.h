@@ -14,6 +14,8 @@
  * pwmPeltierPin - pin 8   // peltier element - PWM - timer 4
  * coolingPin - pin 9      // peltier element
  *
+ * errorLed - pin 13       // Error LED
+ *
  * encoderTamper - pin 18  // encoder tamper - INTERRUPT
  *
  * I2C SDA - pin 20        // RTClock
@@ -36,6 +38,7 @@
 #define pwmPeltierPin 8
 #define heatingPin 7
 #define coolingPin 9
+#define errorLed 13
 #define encoderTamper 18
 
 #define dc   48

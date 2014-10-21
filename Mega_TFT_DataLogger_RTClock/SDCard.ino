@@ -9,6 +9,7 @@ void initSD() {
   }
 }
 
+time_t oldTime = 0;
 /**
  * create dataLogString
  * open (and create if its not existing) log file
@@ -17,15 +18,27 @@ void initSD() {
  */
 void logDataOnSD() {
 
-  dataLogStringGenerator();
-
+  if ((currentTime - 2) < oldTime) {
+    return;
+  }
+  oldTime= currentTime;
+  
+  dataLogString = dataLogStringGenerator();
   // open the file. note that only one file can be open at a time,
   // so you have to close this one before opening another.
-  File dataFile = SD.open("tempData.txt", FILE_WRITE);
+  
+  boolean fileExists = SD.exists("tempData.csv");
+  
+  File dataFile = SD.open("tempData.csv", FILE_WRITE);
 
   // if the file is available, write to it:
   if (dataFile) { 
+    
+    if(!fileExists) {
+      dataFile.println("Datum und Uhrzeit;Wassertemperatur;Zieltemperatur;Peltier Leistung;Peltiertemperatur (oben);Peltiertemperatur (unten)"); 
+    }
     dataFile.println(dataLogString);
+    dataFile.flush();
     dataFile.close();
   }  
   // if the file isn't open, pop up an error:

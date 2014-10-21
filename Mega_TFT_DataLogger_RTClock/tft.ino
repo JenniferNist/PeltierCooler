@@ -119,6 +119,8 @@ void writeStaticText() {
 // Fan speed
 // Peltier Infomation
 
+// flag to check, if a second passed
+boolean nextSecond = false;
 
 /**
  *if the time has changed, print the current time on tft
@@ -137,6 +139,10 @@ void tftPrintTime() {
     printChangedChar(oldTimeString, currentTimeString, 0, 0);
 
     tLast = currentTime;
+    nextSecond = true;
+    
+  } else {
+    nextSecond = false;
   }
 } 
 
@@ -149,6 +155,7 @@ void tftPrintTemp() {
 
   if (!reprintTemp) {
 
+    if (nextSecond) {
     // sensor blue 
     // overwrite only if the value has changed
     if (inputData.tempBlue != oldInputData.tempBlue) {
@@ -189,6 +196,8 @@ void tftPrintTemp() {
       String tempTargetCurrent = floatToString(buffer, inputData.tempTarget, 2, 4);
 
       printChangedChar(tempTargetOld, tempTargetCurrent, 90, 20);  
+    }
+    nextSecond = false;
     }
   }
   else {

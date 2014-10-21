@@ -42,24 +42,26 @@ String fillZeros(int number, int digits){
  */
 String dataLogStringGenerator() {
 
-  // change dateString format to "dd,mm,yyyy,hh,mm,ss"
+  // change dateString format to "dd.mm.yyyy,hh.mm.ss"
   String dateStr = dateString;
-  dateStr.replace(".", ",");
-  dateStr.replace(":", ",");
-  dateStr.replace(" - ", ",");
-
-  // append dateString with temp data
+  dateStr.replace(" - ", " ");
+ 
   String dataLogString = "";
-  dataLogString = dateStr;
-  dataLogString += ",";
-  dataLogString += floatToString(buffer, inputData.tempBlue, 4, 6);
-  dataLogString += ",";
-  dataLogString += floatToString(buffer, inputData.tempBrown, 4, 6);
-  dataLogString += ",";
-  dataLogString += floatToString(buffer, inputData.tempWater, 4, 6);
-  dataLogString += ",";
-  dataLogString += String(peltierPwmValue);
 
+  dataLogString += floatToString(buffer, inputData.tempWater, 4, 6);
+  dataLogString += ";";
+  dataLogString += floatToString(buffer, inputData.tempTarget, 4, 6);
+  dataLogString += ";";
+  dataLogString += String(peltierPwmValue);
+  dataLogString += ";";
+  dataLogString += floatToString(buffer, inputData.tempBrown, 4, 6);
+  dataLogString += ";";
+  dataLogString += floatToString(buffer, inputData.tempBlue, 4, 6);
+  dataLogString.replace(".",",");
+  
+  dataLogString = dateStr + ";" + dataLogString;
+  
+  Serial.println(dataLogString);
   return dataLogString;
 
 }

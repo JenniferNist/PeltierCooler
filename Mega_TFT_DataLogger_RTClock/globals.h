@@ -1,6 +1,20 @@
 #ifndef _GLOBALS_H
 #define _GLOBALS_H
 
+// Setup a OneWire instance to communicate with any OneWire devices.
+// OneWire oneWire(ONE_WIRE_BUS);
+
+// Pass our oneWire reference to Dallas Temperature.
+// DallasTemperature sensore(&oneWire);
+
+// encoder to set the target temperature
+// Encoder myEnc(encoderA, encoderB);
+
+// TFT - SPI connection
+// Adafruit_ST7735 tft = Adafruit_ST7735(tft_cs, dc, rst);
+
+// peltier control: heat or cool
+// PC PC(pwmPeltierPin, heatingPin, coolingPin, peltierPwmFrequency);
 
 // define struct for needed information
 typedef struct inputDataType {

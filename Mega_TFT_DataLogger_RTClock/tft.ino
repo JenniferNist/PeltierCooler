@@ -57,7 +57,9 @@ void writeStaticText() {
 
   // date
   dateStringGenerator(currentTime);
+  tft.setTextColor(ST7735_GREEN);
   tft.println(dateString);
+  tft.setTextColor(ST7735_WHITE);
   tft.println("");
 
   // sensor water
@@ -74,7 +76,9 @@ void writeStaticText() {
 
   // system info
   tft.setCursor(0, 40);
+  tft.setTextColor(ST7735_GREEN);
   tft.println("Peltier information:");
+  tft.setTextColor(ST7735_WHITE);
 
   tft.setCursor(10, 50);
   tft.print("Temp bottom:");
@@ -136,7 +140,9 @@ void tftPrintTime() {
     oldTimeString = dateStringGenerator(tLast);
     currentTimeString = dateStringGenerator(currentTime);
 
+    tft.setTextColor(ST7735_GREEN);
     printChangedChar(oldTimeString, currentTimeString, 0, 0);
+    tft.setTextColor(ST7735_WHITE);
 
     tLast = currentTime;
     nextSecond = true;

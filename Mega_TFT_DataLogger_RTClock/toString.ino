@@ -61,7 +61,7 @@ String dataLogStringGenerator() {
   
   dataLogString = dateStr + ";" + dataLogString;
   
-  Serial.println(dataLogString);
+  Serial.println(dataLogString + ";" + PC.peltierState);
   return dataLogString;
 
 }

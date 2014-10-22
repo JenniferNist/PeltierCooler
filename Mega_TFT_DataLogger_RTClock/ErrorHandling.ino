@@ -83,7 +83,7 @@ void setErrorFlags() {
   // Besser: letzte temperatur und letzte "gute" Zeit speichern, alte temperatur solange an das system weiterreichen, bis
   // längere Zeit keine "gute" Temperatur mehr gelesen wird.
 
-  int tempDifference = abs (inputData.tempBlue - inputData.tempBrown);
+  int tempDifferencePeltier = abs (inputData.tempBlue - inputData.tempBrown);
 
   // should any sensor stop working or is not plugged in stop immediatly
   if (inputData.tempBlue <= -85.00 || inputData.tempBrown <= -85.00 || inputData.tempWater <= -85.00) {
@@ -95,7 +95,7 @@ void setErrorFlags() {
   return;
 
   // peltier element can not stand to have a temperature difference of over 60C
-  if (tempDifference > maxTempDifference) {
+  if (tempDifferencePeltier > maxTempDifference) {
     errorFlag.errorPeltierTempDiff = true;
   }
 

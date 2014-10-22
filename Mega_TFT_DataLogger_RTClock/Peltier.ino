@@ -37,8 +37,13 @@ void peltierControl() {
       PC.stop();
     }
     else {
-      PC.heat(calculatePwm(tempDifference, PC.peltierState));
+      long val = calculatePwm(tempDifference, PC.peltierState);
+      if (val != 0) {
+      PC.heat(val);
+    } else {
+      PC.stop();
     }
+  }
 
     break;
 
@@ -47,7 +52,13 @@ void peltierControl() {
       PC.stop();
     }
     else {
-      PC.cool(calculatePwm(tempDifference, PC.peltierState));
+      long val = calculatePwm(tempDifference, PC.peltierState);
+        if (val != 0) {
+          PC.cool(val);
+        } 
+        else {
+          PC.stop();
+        }
     }
     break;
   }
@@ -58,7 +69,8 @@ void peltierControl() {
  */
 int calculatePwm(int tempDiff, PeltierState state) {
   // set intensity of peltier depending on the temperature difference
-  int value = map(abs(tempDiff), hysteresis, 25, 0, 255);
+
+    int value = map(abs(tempDiff), hysteresis, 5, 0, 255);
 
   if (value > 255) {
     value = 255;
@@ -67,20 +79,22 @@ int calculatePwm(int tempDiff, PeltierState state) {
   switch (state)
   {
   case PeltierStopped:
-      peltierPwmValue = 0;
-      value = 0;
+    peltierPwmValue = 0;
+    value = 0;
     break;
 
   case PeltierCooling:
-      peltierPwmValue = -value;
+    peltierPwmValue = -value;
     break;
 
   case PeltierHeating:
-      peltierPwmValue = value;
+    peltierPwmValue = value;
     break;
   }
   return value;
 }
+
+
 
 
 

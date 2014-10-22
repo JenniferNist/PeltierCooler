@@ -13,8 +13,6 @@
 #include "pins_arduino.h"
 #include "peltierControl.h"
 #include "PWM.h"
-
-PeltierState PC::peltierState = PeltierStopped;
  
 PC::PC(int pwm, int heating, int cooling, long frequency)
 {
@@ -31,7 +29,6 @@ void PC::begin()
  	pinMode(_pwmPin, OUTPUT);
  	pinMode(_heatingPin, OUTPUT);
  	pinMode(_coolingPin, OUTPUT);
-	peltierState = PeltierStopped; 
 	stop();
 }
 

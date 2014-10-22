@@ -37,7 +37,7 @@ public:
   void heat(int intensity);
   void cool(int intensity);
   
-  static PeltierState peltierState;
+  PeltierState peltierState;
 
  private:
   int _pwmPin;

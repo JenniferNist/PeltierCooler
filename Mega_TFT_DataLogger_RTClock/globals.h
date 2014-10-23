@@ -49,9 +49,9 @@ int peltierPwmValue = 0; // [-255;255]
 
 
 // Inner boundary for the temperature controller in centi-degrees
-int hysteresis = 2;
+int hysteresis = 1;
 // Outer boundary for the temperature controller in centi-degrees
-int epsilon = 3;
+int epsilon = 2;
 
 
 // varialbes for RTClock

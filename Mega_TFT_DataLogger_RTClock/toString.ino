@@ -60,8 +60,6 @@ String dataLogStringGenerator() {
   dataLogString.replace(".",",");
   
   dataLogString = dateStr + ";" + dataLogString;
-  
-  Serial.println(dataLogString + ";" + PC.peltierState);
   return dataLogString;
 
 }

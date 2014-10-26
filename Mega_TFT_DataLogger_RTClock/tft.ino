@@ -1,5 +1,9 @@
-//////////////////////////////// Initializing ///////////////////////////
+String tempBlueOld = "";
+String tempBrownOld = "";
+String tempWaterOld = "";
+String tempTargetOld = "";
 
+//////////////////////////////// Initializing ///////////////////////////
 /**
  * initialize tft, black screen and landscape
  */
@@ -66,13 +70,15 @@ void writeStaticText() {
   tft.setCursor(10, 10);
   tft.print("Water temp:");
   tft.setCursor(90,10);
-  tft.println("00.00 C");
+  tft.println("  .   C");
+  tempWaterOld = "";
 
   // target temperature
   tft.setCursor(10, 20);
   tft.print("Target temp:");
   tft.setCursor(90,20);
-  tft.println("00.00 C");
+  tft.println("  .   C");
+  tempTargetOld = "";
 
   // system info
   tft.setCursor(0, 40);
@@ -83,13 +89,15 @@ void writeStaticText() {
   tft.setCursor(10, 50);
   tft.print("Temp bottom:");
   tft.setCursor(90,50);
-  tft.println("00.00 C");
+  tft.println("  .   C");
+  tempBlueOld = "";
 
   // sensor brown
   tft.setCursor(10,60);
   tft.print("Temp top:");
   tft.setCursor(90,60);
-  tft.println("00.00 C");
+  tft.println("  .   C");
+  tempBrownOld = "";
 
   // peltier element
   tft.setCursor(10, 70);
@@ -104,17 +112,12 @@ void writeStaticText() {
   tft.setCursor(10, 80);
   tft.println("Intensity: ");
   tft.setCursor(90, 80);
-  tft.println("0");
-  tft.setCursor(110, 80);
-  tft.println("%");
-
+  tft.println("    %");
   // fan speed
   tft.setCursor(10, 90);
   tft.print("Fan speed: ");
   tft.setCursor(90, 90);
-  tft.print("0");
-  tft.setCursor(110, 90);
-  tft.println("%");
+  tft.print("    %");
 }
 
 ////////////////////////////// Print changing values ////////////////////////////////////
@@ -162,62 +165,33 @@ void tftPrintTime() {
  */
 void tftPrintTemp() {
 
-  if (!reprintTemp) {
-
-    if (nextSecondTemp) {
-      // sensor blue 
-        String tempBlueOld = floatToString(buffer, oldInputData.tempBlue, 2, 4);
-        String tempBlueCurrent = floatToString(buffer, inputData.tempBlue, 2, 4);
-
-        printChangedChar(tempBlueOld, tempBlueCurrent, 90, 50);  
-
-      // sensor brown
-        String tempBrownOld = floatToString(buffer, oldInputData.tempBrown, 2, 4);
-        String tempBrownCurrent = floatToString(buffer, inputData.tempBrown, 2, 4);
-
-        printChangedChar(tempBrownOld, tempBrownCurrent, 90, 60);   
-
-
-      // sensor water
-        String tempWaterOld = floatToString(buffer, oldInputData.tempWater, 2, 4);
-        String tempWaterCurrent = floatToString(buffer, inputData.tempWater, 2, 4);
-
-        printChangedChar(tempWaterOld, tempWaterCurrent, 90, 10);  
-
-      nextSecondTemp = false;
-    }
-    // target temperature
-    if  (inputData.tempTarget != oldInputData.tempTarget) {
-
-      String tempTargetOld = floatToString(buffer, oldInputData.tempTarget, 2, 4);
-      String tempTargetCurrent = floatToString(buffer, inputData.tempTarget, 2, 4);
-
-      printChangedChar(tempTargetOld, tempTargetCurrent, 90, 20);  
-    }
-  }
-  else {
+  if (nextSecondTemp) {
 
     String tempBlue = floatToString(buffer, inputData.tempBlue, 2, 4);
-    tft.setCursor(90, 50);
-    tft.fillRect(90, 50, 30, 8, ST7735_BLACK);
-    tft.print(tempBlue);  
-
-    String tempBrown = floatToString(buffer, inputData.tempBrown, 2, 4);  
-    tft.setCursor(90, 60);
-    tft.fillRect(90, 60, 30, 8, ST7735_BLACK);
-    tft.print(tempBrown);  
-
+    String tempBrown = floatToString(buffer, inputData.tempBrown, 2, 4);      
     String tempWater = floatToString(buffer, inputData.tempWater, 2, 4);
-    tft.setCursor(90, 10);
-    tft.fillRect(90, 10, 30, 8, ST7735_BLACK);
-    tft.print(tempWater);  
 
-    String tempTarget = floatToString(buffer, inputData.tempTarget, 2, 4);
-    tft.setCursor(90, 20);
-    tft.fillRect(90, 20, 30, 8, ST7735_BLACK);
-    tft.print(tempTarget);  
+    if (!tempBlue.equals(tempBlueOld)) {
+      printChangedChar(tempBlueOld, tempBlue, 90, 50);   
+      tempBlueOld = tempBlue;
+    }
+    if (!tempBrown.equals(tempBrownOld)) {
+      printChangedChar(tempBrownOld, tempBrown, 90, 60); 
+      tempBrownOld = tempBrown;
+    }
 
-    reprintTemp = false;
+    if (!tempWater.equals(tempWaterOld)) {
+      printChangedChar(tempWaterOld, tempWater, 90, 10);  
+      tempWaterOld = tempWater;  
+    }
+    nextSecondTemp = false;
+  }
+
+  String tempTarget = floatToString(buffer, inputData.tempTarget, 2, 4);
+
+  if (!tempTarget.equals(tempTargetOld)) {
+    printChangedChar(tempTargetOld, tempTarget, 90, 20); 
+    tempTargetOld = tempTarget;  
   }
 }
 
@@ -231,13 +205,13 @@ void tftPrintFanSpeed() {
   if (!reprintFanSpeed) {
 
     if (nextSecondFan) {
-    if (inputData.fanSpeed != oldInputData.fanSpeed) {
-      int printFanSpeed = map(inputData.fanSpeed, 0, 255, 0, 100);
-      tft.fillRect(90, 90, 20, 8, ST7735_BLACK);
-      tft.setCursor(90, 90);
-      tft.print(printFanSpeed);
-    }
-    nextSecondFan = false;
+      if (inputData.fanSpeed != oldInputData.fanSpeed) {
+        int printFanSpeed = map(inputData.fanSpeed, 0, 255, 0, 100);
+        tft.fillRect(90, 90, 20, 8, ST7735_BLACK);
+        tft.setCursor(90, 90);
+        tft.print(printFanSpeed);
+      }
+      nextSecondFan = false;
     }
   }
   else {
@@ -356,6 +330,11 @@ void printChangedChar(String oldString, String currentString, int posX, int posY
     }
   } 
 }
+
+
+
+
+
 
 
 
